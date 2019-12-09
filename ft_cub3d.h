@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/07 21:28:07 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/09 12:36:09 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,18 +65,41 @@
 #include <sys/stat.h>
 #include <fcntl.h>
 #include <stdio.h>
+#include <math.h>
 #include "minilibx/mlx.h"
 #include "libft/libft.h"
 #include "gnl/get_next_line.h"
 
 typedef struct		s_vars
 {
-	void *mlx_ptr;
-	void *win_ptr;
-	char *map;
-	int x;
-	int y;
-}					t_struct;
+	void	*mlx_ptr;
+	void	*win_ptr;
+	char	*map;
+	int		x;
+	int		y;
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	char	*s;
+	char	*f;
+	char	*c;
+	int		**mapn;
+	int		width;
+	int		height;
+	double	posX;
+	double	posY;
+	double	dirX; 
+	double	dirY;
+	double	planeX;
+	double	planeY;
+	double	time;
+	double	oldtime;
+}					t_mapinfo;
 
-void	getinfo(t_struct *stru);
+void	getinfo(t_mapinfo *stru, char *buffer);
+void	maptoarray(t_mapinfo *stru);
+int		noflines(t_mapinfo *stru);
+int		noffiles(t_mapinfo *stru);
+int checkrules(t_mapinfo *stru);
 #endif
