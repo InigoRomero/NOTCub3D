@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 16:08:19 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/11 20:00:32 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/11 20:13:00 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -205,7 +205,8 @@ void	openall(t_mapinfo *stru)
 	i = 0;
 	stru->mlx_ptr = mlx_init();
 	stru->win_ptr = mlx_new_window(stru->mlx_ptr, stru->x, stru->y, "mlx 42");
-	mlx_key_hook(stru->win_ptr, deal_key, stru);
+	//mlx_key_hook(stru->win_ptr, deal_key, stru);
+	mlx_hook(stru->win_ptr, 2, 0,deal_key, stru);
 	raycasting(stru);
 	if (stru->initialdir > 0)
 	{
