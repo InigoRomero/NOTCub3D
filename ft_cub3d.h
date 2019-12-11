@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/10 13:55:37 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/11 14:54:51 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,6 +79,11 @@ typedef struct		s_vars
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
+	void	*wallone;
+	char	*data_wall;
+	int		bpp;
+	int		size_line;
+	int		endian;
 	char	*map;
 	int		x;
 	int		y;
@@ -100,6 +105,24 @@ typedef struct		s_vars
 	double	planeY;
 	double	time;
 	double	oldtime;
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
+	int		mapX;
+	int		mapY;
+	double	sideDistX;
+    double	sideDistY;
+	double	deltaDistX;
+	double	deltaDistY;
+	double	perpWallDist;
+	int		stepX;
+	int		stepY;
+	int		hit;
+	int		side;
+	int		lineHeight;
+	int		drawStart;
+	int		drawEnd;
+	int		color;
 }					t_mapinfo;
 
 void	getinfo(t_mapinfo *stru, char *buffer);

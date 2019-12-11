@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:04:33 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/10 14:04:42 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/11 15:32:38 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ static void	getdirandpos(t_mapinfo *stru, int dir, int x, int y)
 		stru->dirY = -1;
 	if (dir == DIRE)
 		stru->dirY = 1;
-	printf("%f /// %f", stru->dirX, stru->dirY);
 }
 
 void		maptoarray(t_mapinfo *stru)
