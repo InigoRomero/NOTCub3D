@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 16:08:19 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/11 15:59:42 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/11 20:00:32 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int ft_rgb_color_int(int r, int g, int b)
     return ((r << 16) + (g << 8) + b);
 }
 
-/*void	rmall(t_mapinfo *stru)
+void	rmall(t_mapinfo *stru)
 {
 	int i;
 	int n;
@@ -30,38 +30,26 @@ int ft_rgb_color_int(int r, int g, int b)
 			mlx_pixel_put(stru->mlx_ptr, stru->win_ptr, n++, i, 0);
 		i++;
 	}
-}*/
+}
 
 void	ft_verLine(int x, int start, int end, int color, t_mapinfo *stru)
 {
+	int i;
+
+	i = 0;
+	while (i < start)
+		mlx_pixel_put(stru->mlx_ptr, stru->win_ptr, x, i++, 93999);
 	while (start < end)
 	{
 		mlx_pixel_put(stru->mlx_ptr, stru->win_ptr, x, start, color);
 		start++;
 	}
+	i = start;
+	while (i < stru->y)
+		mlx_pixel_put(stru->mlx_ptr, stru->win_ptr, x, i++, 304930);
 }
 
-int		deal_key(int key, t_mapinfo *stru)
-{
-	/*int i;
 
-	i = 0;
-	if (key == KEY_UP)
-	{
-		stru->width += 30;
-		stru->height += 30;
-		printwall(stru, stru->width, stru->height);
-	}
-	if (key == KEY_DOWN)
-	{
-		stru->width -= 30;
-		stru->height -= 30;
-		printwall(stru, stru->width, stru->height);
-	}*/
-	if (key == KEY_ESQ)
-		exit(1);
-	return (0);
-}
 
 void	readmap(t_mapinfo *stru, char **argv, int argc)
 {
@@ -92,7 +80,6 @@ void	raycasting(t_mapinfo *stru)
 	int n;
 
 	n = 0;
-	printf("%f", stru->dirY);
 	while (n < stru->x)
 	{
 		stru->cameraX = 2 * n / (double)stru->x - 1;
@@ -163,6 +150,71 @@ void	raycasting(t_mapinfo *stru)
 	  n++;
 	}
 }
+ /*									TECLAS CHACHOOOOOOOOOOOO					*/
+int		deal_key(int key, t_mapinfo *stru)
+{
+	stru->oldtime = stru->time;
+	//stru->time = getTicks();
+	stru->frameTime = (stru->time - stru->oldtime) / 1000.0;
+	//redraw();
+	rmall(stru);
+	stru->moveSpeed = 0.6;
+	stru->rotSpeed = 0.4;
+	if (key == KEY_UP)
+	{
+		if (!(stru->mapn[(int)(stru->posX + stru->dirX * stru->moveSpeed)][(int)stru->posY]))
+			stru->posX += stru->dirX * stru->moveSpeed;
+		if(!(stru->mapn[(int)stru->posX][(int)(stru->posY + stru->dirY * stru->moveSpeed)]))
+			stru->posY += stru->dirY * stru->moveSpeed;
+	}
+	if (key == KEY_DOWN)
+	{
+		if (!(stru->mapn[(int)(stru->posX - stru->dirX * stru->moveSpeed)][(int)stru->posY]))
+			stru->posX -= stru->dirX * stru->moveSpeed;
+		if (!(stru->mapn[(int)stru->posX][(int)(stru->posY - stru->dirY * stru->moveSpeed)]))
+			stru->posY -= stru->dirY * stru->moveSpeed;
+	}
+	if (key == KEY_LEFT)
+	{
+		stru->oldDirX = stru->dirX;
+		stru->dirX = stru->dirX * cos(stru->rotSpeed) - stru->dirY * sin(stru->rotSpeed);
+		stru->dirY = stru->oldDirX * sin(stru->rotSpeed) + stru->dirY * cos(stru->rotSpeed);
+		stru->oldPlaneX = stru->planeX;
+		stru->planeX = stru->planeX * cos(-stru->rotSpeed) - stru->planeY * sin(stru->rotSpeed);
+		stru->planeY = stru->oldPlaneX * sin(stru->rotSpeed) + stru->planeY * cos(-stru->rotSpeed);
+	}
+	if (key == KEY_RIGHT)
+	{
+		stru->oldDirX = stru->dirX;
+		stru->dirX = stru->dirX * cos(-stru->rotSpeed) - stru->dirY * sin(-stru->rotSpeed);
+		stru->dirY = stru->oldDirX * sin(-stru->rotSpeed) + stru->dirY * cos(-stru->rotSpeed);
+		stru->oldPlaneX = stru->planeX;
+		stru->planeX = stru->planeX * cos(-stru->rotSpeed) - stru->planeY * sin(-stru->rotSpeed);
+		stru->planeY = stru->oldPlaneX * sin(-stru->rotSpeed) + stru->planeY * cos(-stru->rotSpeed);
+	}
+	if (key == KEY_ESQ)
+		exit(1);
+	raycasting(stru);
+	return (0);
+}
+
+void	openall(t_mapinfo *stru)
+{
+	int i;
+
+	i = 0;
+	stru->mlx_ptr = mlx_init();
+	stru->win_ptr = mlx_new_window(stru->mlx_ptr, stru->x, stru->y, "mlx 42");
+	mlx_key_hook(stru->win_ptr, deal_key, stru);
+	raycasting(stru);
+	if (stru->initialdir > 0)
+	{
+		while (i++ < stru->initialdir)
+			deal_key(KEY_LEFT, stru);
+		stru->initialdir = 0;
+	}
+	mlx_loop(stru->mlx_ptr);
+}
 
 int		main(int argc, char **argv)
 {
@@ -177,10 +229,11 @@ int		main(int argc, char **argv)
 		printf("bad map broh");
 		return (-1);
 	}
-	stru->mlx_ptr = mlx_init();
+	openall(stru);
+	/*stru->mlx_ptr = mlx_init();
 	stru->win_ptr = mlx_new_window(stru->mlx_ptr, stru->x, stru->y, "mlx 42");
-	raycasting(stru);
 	mlx_key_hook(stru->win_ptr, deal_key, stru);
-	mlx_loop(stru->mlx_ptr);
+	raycasting(stru);
+	mlx_loop(stru->mlx_ptr);*/
 	return (0);
 }

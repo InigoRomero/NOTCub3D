@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 19:46:46 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/09 11:20:06 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/11 16:07:01 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	checkcontent(t_mapinfo *stru)
 	{
 		if (stru->map[i] != '1' && stru->map[i] != '0' && stru->map[i] != '2'
 			&& stru->map[i] != 'N' && stru->map[i] != 'S' &&
-			stru->map[i] != 'O' && stru->map[i] != 'E')
+			stru->map[i] != 'O' && stru->map[i] != 'E' && stru->map[i] != 'W')
 			return (-1);
 		i += 2;
 	}

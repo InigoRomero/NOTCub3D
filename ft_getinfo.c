@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 20:51:50 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/09 12:26:19 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/11 19:20:09 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ void			getinfo(t_mapinfo *stru, char *buffer)
 		stru->we = ft_strdup(getstr(buffer, stru));
 	else if (ft_strnstr(buffer, "EA", len))
 		stru->ea = ft_strdup(getstr(buffer, stru));
-	else if ((temp = ft_strchr(buffer, 'S')))
+	else if (ft_strnstr(buffer, "S .", len))
 		stru->s = ft_strdup(getstr(buffer, stru));
 	else if ((temp = ft_strchr(buffer, 'F')))
 		stru->f = ft_strdup(getcolor(buffer, stru));

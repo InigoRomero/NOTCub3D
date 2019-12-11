@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/11 14:54:51 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/11 19:53:29 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,14 @@ typedef struct		s_vars
 	int		drawStart;
 	int		drawEnd;
 	int		color;
+	double	moveSpeed;
+	double	frameTime;
+	double	rotSpeed;
+	double	oldDirX;
+	double	oldDirY;
+	double	oldPlaneX;
+	double	oldPlaneY;
+	int		initialdir;
 }					t_mapinfo;
 
 void	getinfo(t_mapinfo *stru, char *buffer);
@@ -130,4 +138,5 @@ void	maptoarray(t_mapinfo *stru);
 int		noflines(t_mapinfo *stru);
 int		noffiles(t_mapinfo *stru);
 int checkrules(t_mapinfo *stru);
+int		deal_key(int key, t_mapinfo *stru);
 #endif

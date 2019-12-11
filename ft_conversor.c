@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:04:33 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/11 15:32:38 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/11 20:00:11 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,16 @@ static void	getdirandpos(t_mapinfo *stru, int dir, int x, int y)
 {
 	stru->posX = x;
 	stru->posY = y;
+	stru->dirX = -1;
+	stru->dirY = 0;
 	if (dir == DIRN)
-		stru->dirX = -1;
+		stru->initialdir = 0;
 	if (dir == DIRS)
-		stru->dirX = 1;
+		stru->initialdir = 8;
 	if (dir == DIRW)
-		stru->dirY = -1;
+		stru->initialdir = 4;
 	if (dir == DIRE)
-		stru->dirY = 1;
+		stru->initialdir = 12;
 }
 
 void		maptoarray(t_mapinfo *stru)
@@ -74,7 +76,10 @@ void		maptoarray(t_mapinfo *stru)
 			stru->mapn[i][y] = stru->map[n] - 48;
 			n += 2;
 			if (stru->mapn[i][y] > 2)
+			{
 				getdirandpos(stru, stru->mapn[i][y], i, y);
+				stru->mapn[i][y] = 0;
+			}
 			y++;
 		}
 		i++;
