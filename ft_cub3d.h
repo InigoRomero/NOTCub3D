@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/09 12:36:09 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/10 13:55:37 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,11 @@
 # define KEY_DOWN 125
 # define KEY_UP 126
 # define BUFFER_SIZE 1
+# define KEY_ESQ 53
+# define DIRN 30
+# define DIRW 39
+# define DIRE 21
+# define DIRS 35
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/stat.h>
@@ -89,7 +94,7 @@ typedef struct		s_vars
 	int		height;
 	double	posX;
 	double	posY;
-	double	dirX; 
+	double	dirX;
 	double	dirY;
 	double	planeX;
 	double	planeY;

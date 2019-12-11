@@ -6,13 +6,13 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:04:33 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/08 19:51:02 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/10 14:04:42 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-int		noflines(t_mapinfo *stru)
+int			noflines(t_mapinfo *stru)
 {
 	int i;
 	int x;
@@ -26,7 +26,7 @@ int		noflines(t_mapinfo *stru)
 	return (x);
 }
 
-int		noffiles(t_mapinfo *stru)
+int			noffiles(t_mapinfo *stru)
 {
 	int i;
 	int x;
@@ -40,7 +40,22 @@ int		noffiles(t_mapinfo *stru)
 	return (x);
 }
 
-void			maptoarray(t_mapinfo *stru)
+static void	getdirandpos(t_mapinfo *stru, int dir, int x, int y)
+{
+	stru->posX = x;
+	stru->posY = y;
+	if (dir == DIRN)
+		stru->dirX = -1;
+	if (dir == DIRS)
+		stru->dirX = 1;
+	if (dir == DIRW)
+		stru->dirY = -1;
+	if (dir == DIRE)
+		stru->dirY = 1;
+	printf("%f /// %f", stru->dirX, stru->dirY);
+}
+
+void		maptoarray(t_mapinfo *stru)
 {
 	int i;
 	int n;
@@ -57,8 +72,11 @@ void			maptoarray(t_mapinfo *stru)
 		y = 0;
 		while (y < noffiles(stru))
 		{
-			stru->mapn[i][y++] = stru->map[n] - 48;
+			stru->mapn[i][y] = stru->map[n] - 48;
 			n += 2;
+			if (stru->mapn[i][y] > 2)
+				getdirandpos(stru, stru->mapn[i][y], i, y);
+			y++;
 		}
 		i++;
 	}
