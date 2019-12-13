@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 16:08:19 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/13 16:32:31 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/13 16:58:58 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,29 +19,28 @@ int ft_rgb_color_int(int r, int g, int b)
 
 void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s)
 {
-	int i;
+	int j;
+	int color2;
 
-	i = 0;
-	/*while (i < start)
+	color2 = 293994;
+	j = 0;
+	while (j < start)
 	{
-		mlx_pixel_put(s->mlx_ptr, s->win_ptr, x, i + end, 304930);
-		mlx_pixel_put(s->mlx_ptr, s->win_ptr, x, i++, 93999);
+		ft_memcpy(s->img_ptr + 4 * s->x * j + x * 4, &color2, sizeof(int));
+		j++;
 	}
-	while (start < end)
-		mlx_pixel_put(s->mlx_ptr, s->win_ptr, x, start++, color);*/
-	/*while (i < start)
-	{
-		ft_memcpy(s->wallone, ft_strdup("128283"), 6);
-	}
-	while (start < end)
-		mlx_pixel_put(s->mlx_ptr, s->win_ptr, x, start++, color);*/
-	int j = start;
+	j = start;
 	while (j < end)
 	{
 		ft_memcpy(s->img_ptr + 4 * s->x * j + x * 4, &color, sizeof(int));
 		j++;
 	}
-	j = start + x;
+	j = end;
+	while (j < s->y)
+	{
+		ft_memcpy(s->img_ptr + 4 * s->x * j + x * 4, &color2, sizeof(int));
+		j++;
+	}
 
 }
 
@@ -64,7 +63,7 @@ void	startvars(t_mapinfo *s)
 	s->width = 0;
 	s->height = 0;
 	s->planeX = 0;
-	s->planeY = 1.2;
+	s->planeY = 0.66;
 	s->moveSpeed = 0.80;
 	s->rotSpeed = 0.25;
 	/*s->width = 400;

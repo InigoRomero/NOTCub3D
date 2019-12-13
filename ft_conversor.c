@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:04:33 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/13 15:44:23 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/13 16:56:45 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,11 @@ static void	getdirandpos(t_mapinfo *s, int dir, int x, int y)
 	if (dir == DIRN)
 		s->initialdir = 0;
 	if (dir == DIRS)
-		s->initialdir = 8;
-	if (dir == DIRW)
-		s->initialdir = 4;
-	if (dir == DIRE)
 		s->initialdir = 12;
+	if (dir == DIRW)
+		s->initialdir = 6;
+	if (dir == DIRE)
+		s->initialdir = 19;
 }
 
 void		maptoarray(t_mapinfo *s)
