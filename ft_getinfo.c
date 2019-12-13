@@ -6,13 +6,13 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 20:51:50 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/11 19:20:09 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:44:26 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-static	void	getres(char *temp, t_mapinfo *stru)
+static	void	getres(char *temp, t_mapinfo *s)
 {
 	int i;
 	int aux;
@@ -23,51 +23,51 @@ static	void	getres(char *temp, t_mapinfo *stru)
 	aux = i;
 	while (ft_isdigit(temp[i]))
 		i++;
-	stru->x = ft_atoi(ft_substr(temp, aux, i));
+	s->x = ft_atoi(ft_substr(temp, aux, i));
 	while (temp[i] == ' ')
 		i++;
 	aux = i;
 	while (ft_isdigit(temp[i]))
 		i++;
-	stru->y = ft_atoi(ft_substr(temp, aux, i));
+	s->y = ft_atoi(ft_substr(temp, aux, i));
 }
 
-static	char	*getstr(char *temp, t_mapinfo *stru)
+static	char	*getstr(char *temp, t_mapinfo *s)
 {
 	while (*temp != '.')
 		temp++;
 	return (ft_strdup(temp));
 }
 
-static	char	*getcolor(char *temp, t_mapinfo *stru)
+static	char	*getcolor(char *temp, t_mapinfo *s)
 {
 	while (!(ft_isdigit(*temp)))
 		temp++;
 	return (ft_strdup(temp));
 }
 
-void			getinfo(t_mapinfo *stru, char *buffer)
+void			getinfo(t_mapinfo *s, char *buffer)
 {
 	char	*temp;
 	int		len;
 
 	len = ft_strlen(buffer);
 	if ((temp = ft_strchr(buffer, 'R')))
-		getres(buffer, stru);
+		getres(buffer, s);
 	else if (ft_strnstr(buffer, "NO", len))
-		stru->no = ft_strdup(getstr(buffer, stru));
+		s->no = ft_strdup(getstr(buffer, s));
 	else if (ft_strnstr(buffer, "SO", len))
-		stru->so = ft_strdup(getstr(buffer, stru));
+		s->so = ft_strdup(getstr(buffer, s));
 	else if (ft_strnstr(buffer, "WE", len))
-		stru->we = ft_strdup(getstr(buffer, stru));
+		s->we = ft_strdup(getstr(buffer, s));
 	else if (ft_strnstr(buffer, "EA", len))
-		stru->ea = ft_strdup(getstr(buffer, stru));
+		s->ea = ft_strdup(getstr(buffer, s));
 	else if (ft_strnstr(buffer, "S .", len))
-		stru->s = ft_strdup(getstr(buffer, stru));
+		s->s = ft_strdup(getstr(buffer, s));
 	else if ((temp = ft_strchr(buffer, 'F')))
-		stru->f = ft_strdup(getcolor(buffer, stru));
+		s->f = ft_strdup(getcolor(buffer, s));
 	else if ((temp = ft_strchr(buffer, 'C')))
-		stru->c = ft_strdup(getcolor(buffer, stru));
+		s->c = ft_strdup(getcolor(buffer, s));
 	else if ((temp = ft_strchr(buffer, '1')))
-		stru->map = ft_strjoin(stru->map, ft_strjoin(buffer, "\n"));
+		s->map = ft_strjoin(s->map, ft_strjoin(buffer, "\n"));
 }

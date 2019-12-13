@@ -6,56 +6,56 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 19:46:46 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/11 16:07:01 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:44:20 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-static int	checkborder(t_mapinfo *stru)
+static int	checkborder(t_mapinfo *s)
 {
 	int i;
 
 	i = 0;
-	while (i < stru->width)
-		if (stru->mapn[0][i++] != 1)
+	while (i < s->width)
+		if (s->mapn[0][i++] != 1)
 			return (-1);
 	i = 0;
-	while (i < stru->width)
-		if (stru->mapn[stru->height - 1][i++] != 1)
+	while (i < s->width)
+		if (s->mapn[s->height - 1][i++] != 1)
 			return (-1);
 	i = 0;
-	while (i < stru->height)
-		if (stru->mapn[i++][0] != 1)
+	while (i < s->height)
+		if (s->mapn[i++][0] != 1)
 			return (-1);
 	i = 0;
-	while (i < stru->height)
-		if (stru->mapn[i++][stru->width - 1] != 1)
+	while (i < s->height)
+		if (s->mapn[i++][s->width - 1] != 1)
 			return (-1);
 	return (1);
 }
 
-static int	checkcontent(t_mapinfo *stru)
+static int	checkcontent(t_mapinfo *s)
 {
 	int i;
 
 	i = 0;
-	while (stru->map[i] != '\0')
+	while (s->map[i] != '\0')
 	{
-		if (stru->map[i] != '1' && stru->map[i] != '0' && stru->map[i] != '2'
-			&& stru->map[i] != 'N' && stru->map[i] != 'S' &&
-			stru->map[i] != 'O' && stru->map[i] != 'E' && stru->map[i] != 'W')
+		if (s->map[i] != '1' && s->map[i] != '0' && s->map[i] != '2'
+			&& s->map[i] != 'N' && s->map[i] != 'S' &&
+			s->map[i] != 'O' && s->map[i] != 'E' && s->map[i] != 'W')
 			return (-1);
 		i += 2;
 	}
 	return (1);
 }
 
-int			checkrules(t_mapinfo *stru)
+int			checkrules(t_mapinfo *s)
 {
-	if (checkborder(stru) == -1)
+	if (checkborder(s) == -1)
 		return (-1);
-	if (checkcontent(stru) == -1)
+	if (checkcontent(s) == -1)
 		return (-1);
 	return (1);
 }

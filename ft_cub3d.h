@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/11 19:53:29 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/13 15:55:57 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,10 +79,11 @@ typedef struct		s_vars
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
-	void	*wallone;
+	char	*wallone;
+	char 	*img_ptr;
 	char	*data_wall;
 	int		bpp;
-	int		size_line;
+	int		sl;
 	int		endian;
 	char	*map;
 	int		x;
@@ -133,10 +134,10 @@ typedef struct		s_vars
 	int		initialdir;
 }					t_mapinfo;
 
-void	getinfo(t_mapinfo *stru, char *buffer);
-void	maptoarray(t_mapinfo *stru);
-int		noflines(t_mapinfo *stru);
-int		noffiles(t_mapinfo *stru);
-int checkrules(t_mapinfo *stru);
-int		deal_key(int key, t_mapinfo *stru);
+void	getinfo(t_mapinfo *s, char *buffer);
+void	maptoarray(t_mapinfo *s);
+int		noflines(t_mapinfo *s);
+int		noffiles(t_mapinfo *s);
+int checkrules(t_mapinfo *s);
+int		deal_key(int key, t_mapinfo *s);
 #endif
