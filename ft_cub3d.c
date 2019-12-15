@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 16:08:19 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/13 16:58:58 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/14 18:57:09 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,18 @@ int ft_rgb_color_int(int r, int g, int b)
     return ((r << 16) + (g << 8) + b);
 }
 
+void	fp(t_mapinfo *s)
+{
+	int x;
+	int y;
+
+	x = s->x / 2;
+	y = s->y / 2;
+	char *str;
+	str = ft_strdup("src/fp2.xpm");
+	s->img_psr = mlx_xpm_file_to_image(s->mlx_ptr, str, &x, &y);
+	s->img_psrda = mlx_get_data_addr(s->img_psr, &s->bpp, &s->sl, &s->endian);
+}
 void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s)
 {
 	int j;
@@ -36,6 +48,7 @@ void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s)
 		j++;
 	}
 	j = end;
+	ft_strjoin(s->img_ptr, s->img_psr);
 	while (j < s->y)
 	{
 		ft_memcpy(s->img_ptr + 4 * s->x * j + x * 4, &color2, sizeof(int));
@@ -64,8 +77,8 @@ void	startvars(t_mapinfo *s)
 	s->height = 0;
 	s->planeX = 0;
 	s->planeY = 0.66;
-	s->moveSpeed = 0.80;
-	s->rotSpeed = 0.25;
+	s->moveSpeed = 0.08;
+	s->rotSpeed = 0.05;
 	/*s->width = 400;
 	s->height = 400;
 	s->bpp = 0;
@@ -74,8 +87,8 @@ void	startvars(t_mapinfo *s)
 	char *pop;
 
 	pop = ft_strdup("wall.xpm");
-	tru->wallone = mlx_xpm_to_image(s->mlx_ptr, &pop,&s->width, &s->height);
-	mlx_get_data_addr(s->wallone,  &s->bpp, &s->size_line, &s->endian);*/
+	tru->img = mlx_xpm_to_image(s->mlx_ptr, &pop,&s->width, &s->height);
+	mlx_get_data_addr(s->img,  &s->bpp, &s->size_line, &s->endian);*/
 }
 
 void	raycasting(t_mapinfo *s)
@@ -83,8 +96,9 @@ void	raycasting(t_mapinfo *s)
 	int n;
 
 	n = 0;
-	s->wallone = mlx_new_image(s->mlx_ptr, s->x, s->y);
-	s->img_ptr = mlx_get_data_addr(s->wallone, &s->bpp, &s->sl, &s->endian);
+	s->img = mlx_new_image(s->mlx_ptr, s->x, s->y);
+	s->img_ptr = mlx_get_data_addr(s->img, &s->bpp, &s->sl, &s->endian);
+	printf("x:%f  y:%f\n", s->dirX, s->dirY);
 	while (n < s->x)
 	{
 		s->cameraX = 2 * n / (double)s->x - 1;
@@ -150,54 +164,90 @@ void	raycasting(t_mapinfo *s)
 		ft_verLine(n, s->drawStart, s->drawEnd, s->color, s);
 		n++;
 	}
-
+	//fp(s);
+	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr,  s->img, 0, 0 );
+	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr,  s->img_psr, s->x / 3, s->y - s->y / 3);
+	mlx_destroy_image(s->mlx_ptr, s->img);
+	//mlx_destroy_image(s->mlx_ptr, s->img_psr);
 }
  /*									TECLAS CHACHOOOOOOOOOOOO					*/
-int		deal_key(int key, t_mapinfo *s)
+int		pulsed(int key, t_mapinfo *s)
 {
 	if (key == KEY_W)
+		s->presedw = 0;
+	if (key == KEY_S)
+		s->preseds = 0;
+	if (key == KEY_A)
+		s->preseda = 0;
+	if (key == KEY_D)
+		s->presedd = 0;
+	if (key == KEY_LEFT)
+		s->presedl = 0;
+	if (key == KEY_RIGHT)
+		s->presedr = 0;
+	if (key == KEY_ESQ)
+		s->presedr = 0;
+	if (key == KEY_SHIFT)
+		s->moveSpeed = 0.08;
+	return (0);
+}
+
+int		nopulsed(int key, t_mapinfo *s)
+{
+	if (key == KEY_W)
+		s->presedw = 1;
+	if (key == KEY_S)
+		s->preseds = 1;
+	if (key == KEY_A)
+		s->preseda = 1;
+	if (key == KEY_D)
+		s->presedd = 1;
+	if (key == KEY_LEFT)
+		s->presedl = 1;
+	if (key == KEY_RIGHT)
+		s->presedr = 1;
+	if (key == KEY_ESQ)
+		s->presedesq = 1;
+	if (key == KEY_SHIFT)
+		s->moveSpeed = 0.16;
+	return (0);
+}
+
+int		deal_key(t_mapinfo *s)
+{
+	double p;
+
+	p = -0.40;
+	if (s->presedw == 1)
 	{
 		if (!(s->mapn[(int)(s->posX + s->dirX * s->moveSpeed)][(int)s->posY]))
 			s->posX += s->dirX * s->moveSpeed;
 		if(!(s->mapn[(int)s->posX][(int)(s->posY + s->dirY * s->moveSpeed)]))
 			s->posY += s->dirY * s->moveSpeed;
 	}
-	if (key == KEY_S)
+	if (s->preseds == 1)
 	{
 		if (!(s->mapn[(int)(s->posX - s->dirX * s->moveSpeed)][(int)s->posY]))
 			s->posX -= s->dirX * s->moveSpeed;
 		if (!(s->mapn[(int)s->posX][(int)(s->posY - s->dirY * s->moveSpeed)]))
 			s->posY -= s->dirY * s->moveSpeed;
 	}
-	if (key == KEY_A)
+	if (s->preseda == 1)
 	{
-		if(!(s->mapn[(int)s->posX][(int)(s->posY + s->dirY * s->moveSpeed)]))
-		{
-			if (s->dirY < 0 && s->dirX < 0)
-				s->posY += s->dirY * s->moveSpeed;
-			else if (s->dirY > 0 && s->dirX > 0)
-				s->posY -= s->dirY * s->moveSpeed;
-			else if (s->dirX == -1.0000 && s->dirY == 0.0000)
-				s->posY += s->dirX * s->moveSpeed;
-			else if (s->dirX < 0.0000 && s->dirY > 0.0000)
-				s->posX -= s->dirY * s->moveSpeed;
-			else if (s->dirX > 0.0000 && s->dirY < 0.0000)
-				s->posX += s->dirY * s->moveSpeed;
-		}
+		if (!(s->mapn[(int)(s->posX - s->dirY * s->moveSpeed)][(int)s->posY]))
+			s->posX -= s->dirY * s->moveSpeed;
+		if(!(s->mapn[(int)s->posX][(int)(s->posY + s->dirX * s->moveSpeed)]))
+			s->posY += s->dirX * s->moveSpeed;
 	}
-	if (key == KEY_D)
+	if (s->presedd == 1)
 	{
-		if(!(s->mapn[(int)s->posX][(int)(s->posY + s->dirY * s->moveSpeed)]))
-		{
-			if (s->dirY < 0)
-				s->posY -= s->dirY * s->moveSpeed;
-			else if (s->dirY > 0)
-				s->posY += s->dirY * s->moveSpeed;
-			else if (s->dirX == -1 && s->dirY == 0)
-				s->posX += s->dirX * s->moveSpeed;
-		}
+
+		if (!(s->mapn[(int)(s->posX + s->dirY * s->moveSpeed)][(int)s->posY]))
+			s->posX += s->dirY * s->moveSpeed;
+		if(!(s->mapn[(int)s->posX][(int)(s->posY - s->dirX * s->moveSpeed)]))
+			s->posY -= s->dirX * s->moveSpeed;
 	}
-	if (key == KEY_LEFT)
+	if (s->presedl == 1)
 	{
 		s->oldDirX = s->dirX;
 		s->dirX = s->dirX * cos(s->rotSpeed) - s->dirY * sin(s->rotSpeed);
@@ -206,7 +256,7 @@ int		deal_key(int key, t_mapinfo *s)
 		s->planeX = s->planeX * cos(-s->rotSpeed) - s->planeY * sin(s->rotSpeed);
 		s->planeY = s->oldPlaneX * sin(s->rotSpeed) + s->planeY * cos(-s->rotSpeed);
 	}
-	if (key == KEY_RIGHT)
+	if (s->presedr == 1)
 	{
 		s->oldDirX = s->dirX;
 		s->dirX = s->dirX * cos(-s->rotSpeed) - s->dirY * sin(-s->rotSpeed);
@@ -215,13 +265,10 @@ int		deal_key(int key, t_mapinfo *s)
 		s->planeX = s->planeX * cos(-s->rotSpeed) - s->planeY * sin(-s->rotSpeed);
 		s->planeY = s->oldPlaneX * sin(-s->rotSpeed) + s->planeY * cos(-s->rotSpeed);
 	}
-	if (key == KEY_ESQ)
+	if (s->presedesq == 1)
 		exit(1);
-		printf("x:%f   y:%f\n", s->dirX , s->dirY);
 	raycasting(s);
-	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr,  s->wallone, 0, 0 );
-	mlx_destroy_image(s->mlx_ptr, s->wallone);
-	return (0);
+	return (1);
 }
 
 void	openall(t_mapinfo *s)
@@ -231,18 +278,17 @@ void	openall(t_mapinfo *s)
 	i = 0;
 	s->mlx_ptr = mlx_init();
 	s->win_ptr = mlx_new_window(s->mlx_ptr, s->x, s->y, "mlx 42");
-	s->wallone = mlx_new_image(s->mlx_ptr, s->x, s->y);
-	s->img_ptr = mlx_get_data_addr(s->wallone, &s->bpp, &s->sl, &s->endian);
+	fp(s);
 	raycasting(s);
-	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr,  s->wallone, 0, 0 );
-	mlx_destroy_image(s->mlx_ptr, s->wallone);
-	mlx_hook(s->win_ptr, 2, 0,deal_key, s);
-	if (s->initialdir > 0)
+	mlx_hook(s->win_ptr, 2, 0,nopulsed, s);
+	mlx_hook(s->win_ptr, 3, 0,pulsed, s);
+	mlx_loop_hook(s->mlx_ptr, deal_key, s);
+/*	if (s->initialdir > 0)
 	{
 		while (i++ < s->initialdir)
-			deal_key(KEY_LEFT, s);
+			deal_key(s);
 		s->initialdir = 0;
-	}
+	}*/
 	mlx_loop(s->mlx_ptr);
 }
 

@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/13 15:55:57 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/14 18:52:59 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@
 # define KEY_UP 126
 # define BUFFER_SIZE 1
 # define KEY_ESQ 53
+# define KEY_SHIFT 257
 # define DIRN 30
 # define DIRW 39
 # define DIRE 21
@@ -79,8 +80,11 @@ typedef struct		s_vars
 {
 	void	*mlx_ptr;
 	void	*win_ptr;
-	char	*wallone;
+	char	*img;
 	char 	*img_ptr;
+	char 	*img_psr;
+	char 	*img_psrda;
+	char	*wlone;
 	char	*data_wall;
 	int		bpp;
 	int		sl;
@@ -132,6 +136,14 @@ typedef struct		s_vars
 	double	oldPlaneX;
 	double	oldPlaneY;
 	int		initialdir;
+	int		preseda;
+	int		presedw;
+	int		presedl;
+	int		presedr;
+	int		preseds;
+	int		presedd;
+	int		presedesq;
+	int		presshift;
 }					t_mapinfo;
 
 void	getinfo(t_mapinfo *s, char *buffer);
@@ -139,5 +151,5 @@ void	maptoarray(t_mapinfo *s);
 int		noflines(t_mapinfo *s);
 int		noffiles(t_mapinfo *s);
 int checkrules(t_mapinfo *s);
-int		deal_key(int key, t_mapinfo *s);
+int		deal_key(t_mapinfo *s);
 #endif
