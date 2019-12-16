@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/14 18:52:59 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/16 16:35:13 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,11 +84,14 @@ typedef struct		s_vars
 	char 	*img_ptr;
 	char 	*img_psr;
 	char 	*img_psrda;
-	char	*wlone;
-	char	*data_wall;
+	char	*wlone[3];
+	char	*wdata[3];
 	int		bpp;
 	int		sl;
 	int		endian;
+	int		wbpp[3];
+	int		wsl[3];
+	int		wendian[3];
 	char	*map;
 	int		x;
 	int		y;
@@ -99,7 +102,7 @@ typedef struct		s_vars
 	char	*s;
 	char	*f;
 	char	*c;
-	int		**mapn;
+	char	**mapn;
 	int		width;
 	int		height;
 	double	posX;
@@ -144,6 +147,9 @@ typedef struct		s_vars
 	int		presedd;
 	int		presedesq;
 	int		presshift;
+	int		x_text;
+	double	x_wall;
+	int		id;
 }					t_mapinfo;
 
 void	getinfo(t_mapinfo *s, char *buffer);

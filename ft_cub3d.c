@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 16:08:19 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/14 18:57:09 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/16 18:24:04 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,18 +22,66 @@ void	fp(t_mapinfo *s)
 	int x;
 	int y;
 
-	x = s->x / 2;
-	y = s->y / 2;
+	x = 64;
+	y = 64;
 	char *str;
 	str = ft_strdup("src/fp2.xpm");
 	s->img_psr = mlx_xpm_file_to_image(s->mlx_ptr, str, &x, &y);
-	s->img_psrda = mlx_get_data_addr(s->img_psr, &s->bpp, &s->sl, &s->endian);
+	//s->img_psrda = mlx_get_data_addr(s->img_psr, &s->bpp, &s->sl, &s->endian);
+	
+	//str = ft_strdup("src/wall.xpm");
+	s->wlone[0] = mlx_xpm_file_to_image(s->mlx_ptr, "src/stone.xpm", &x, &y);
+	s->wdata[0] = mlx_get_data_addr(s->wlone[0], &s->wbpp[0], &s->wsl[0], &s->wendian[0]);
+	x = 512;
+	y = 512;
+	s->wlone[1] = mlx_xpm_file_to_image(s->mlx_ptr, "src/sky.xpm", &x, &y);
+	s->wdata[1] = mlx_get_data_addr(s->wlone[1], &s->wbpp[1], &s->wsl[1], &s->wendian[1]);
+	x = 64;
+	y = 64;
+	s->wlone[2] = mlx_xpm_file_to_image(s->mlx_ptr, "src/wood.xpm", &x, &y);
+	s->wdata[2] = mlx_get_data_addr(s->wlone[2], &s->wbpp[2], &s->wsl[2], &s->wendian[2]);
+}
+
+void	put_pxl_to_img(t_mapinfo *s, int x, int y)
+{
+	int n;
+	
+	if (x < s->x && y < s->y)
+	{
+		n = abs((((y * 256 - s->y * 128 + s->lineHeight * 128) * 64)
+					/ s->lineHeight) / 256);
+		ft_memcpy(s->img_ptr + 4 * s->x * y + x * 4,// &s->color, sizeof(int));
+				&s->wdata[s->id][n % 64 * s->wsl[s->id] +
+				s->x_text % 64 * s->wbpp[s->id] / 8], sizeof(int));
+	}
+}
+
+void	ft_sky( t_mapinfo *s)
+{
+	int j;
+	int p;
+
+	p = 0;
+	while (p < s->x)
+	{
+		j = 0;
+		while (j < s->y / 2)
+		{
+			ft_memcpy(s->img_ptr + 4 * s->x * j + j * 4,
+				&s->wdata[1][j % 512 * s->wsl[1] +
+				p % 512 * s->wbpp[1] / 9], sizeof(int));
+			j++;
+		}
+		p++;
+	}
 }
 void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s)
 {
 	int j;
 	int color2;
-
+	int count;
+	
+	count = 0;
 	color2 = 293994;
 	j = 0;
 	while (j < start)
@@ -41,20 +89,41 @@ void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s)
 		ft_memcpy(s->img_ptr + 4 * s->x * j + x * 4, &color2, sizeof(int));
 		j++;
 	}
+	/*j = 0;
+	while (j < start)
+	{
+		ft_memcpy(s->img_ptr + 4 * s->x * j + j * 4,
+			&s->wdata[1][j % 512 * s->wsl[1] +
+			x % 512 * s->wbpp[1] / 8], sizeof(int));
+		j++;
+	}*/
 	j = start;
-	while (j < end)
+
+	if (s->side == 0)
+		s->x_wall = s->posY + s->perpWallDist * s->rayDirY;
+	else
+		s->x_wall = s->posX + s->perpWallDist * s->rayDirX;
+	s->x_text = (int)(s->x_wall * (double)(64));
+	if (s->side == 0 && s->rayDirX > 0)
+		s->x_text = 64 - s->x_text - 1;
+	if (s->side == 1 && s->rayDirY < 0)
+		s->x_text = 64 - s->x_text - 1;
+	s->x_text = abs(s->x_text);
+	while (j <= end)
+		put_pxl_to_img(s, x, j++);
+
+	/*while (j < end)
 	{
 		ft_memcpy(s->img_ptr + 4 * s->x * j + x * 4, &color, sizeof(int));
 		j++;
-	}
+	}*/
 	j = end;
-	ft_strjoin(s->img_ptr, s->img_psr);
+	//ft_strjoin(s->img_ptr, s->img_psr);
 	while (j < s->y)
 	{
 		ft_memcpy(s->img_ptr + 4 * s->x * j + x * 4, &color2, sizeof(int));
 		j++;
 	}
-
 }
 
 void	readmap(t_mapinfo *s, char **argv, int argc)
@@ -98,7 +167,7 @@ void	raycasting(t_mapinfo *s)
 	n = 0;
 	s->img = mlx_new_image(s->mlx_ptr, s->x, s->y);
 	s->img_ptr = mlx_get_data_addr(s->img, &s->bpp, &s->sl, &s->endian);
-	printf("x:%f  y:%f\n", s->dirX, s->dirY);
+	//ft_sky(s);
 	while (n < s->x)
 	{
 		s->cameraX = 2 * n / (double)s->x - 1;
@@ -158,9 +227,9 @@ void	raycasting(t_mapinfo *s)
 		if (s->drawEnd >= s->y)
 			s->drawEnd = s->y - 1;
 		if (s->mapn[s->mapX][s->mapY] == 1)
-			s->color = 7484839;
+			s->id = 0;
 		if (s->side == 1)
-			s->color = s->color / 2;
+			s->id = 2;
 		ft_verLine(n, s->drawStart, s->drawEnd, s->color, s);
 		n++;
 	}
@@ -218,6 +287,7 @@ int		deal_key(t_mapinfo *s)
 	double p;
 
 	p = -0.40;
+	raycasting(s);
 	if (s->presedw == 1)
 	{
 		if (!(s->mapn[(int)(s->posX + s->dirX * s->moveSpeed)][(int)s->posY]))
@@ -267,7 +337,6 @@ int		deal_key(t_mapinfo *s)
 	}
 	if (s->presedesq == 1)
 		exit(1);
-	raycasting(s);
 	return (1);
 }
 

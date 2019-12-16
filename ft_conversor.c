@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:04:33 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/13 16:56:45 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/16 12:42:43 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,11 +64,11 @@ void		maptoarray(t_mapinfo *s)
 
 	i = 0;
 	n = 0;
-	if (!(s->mapn = malloc(sizeof(int *) * (noflines(s) + 1))))
+	if (!(s->mapn = malloc(sizeof(char *) * (noflines(s) + 1))))
 		return ;
 	while (i < noflines(s))
 	{
-		if (!(s->mapn[i] = malloc(sizeof(int) * (noffiles(s) + 1))))
+		if (!(s->mapn[i] = malloc(sizeof(char) * (noffiles(s) + 1))))
 			return ;
 		y = 0;
 		while (y < noffiles(s))
