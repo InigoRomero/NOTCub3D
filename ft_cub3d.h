@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/16 16:35:13 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/17 19:43:02 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,14 +84,16 @@ typedef struct		s_vars
 	char 	*img_ptr;
 	char 	*img_psr;
 	char 	*img_psrda;
-	char	*wlone[3];
-	char	*wdata[3];
+	char	*wlone[6];
+	char	*wdata[6];
 	int		bpp;
 	int		sl;
 	int		endian;
-	int		wbpp[3];
-	int		wsl[3];
-	int		wendian[3];
+	int		wbpp[6];
+	int		wsl[6];
+	int		wendian[6];
+	int		h[6];
+	int		w[6];
 	char	*map;
 	int		x;
 	int		y;
@@ -158,4 +160,8 @@ int		noflines(t_mapinfo *s);
 int		noffiles(t_mapinfo *s);
 int checkrules(t_mapinfo *s);
 int		deal_key(t_mapinfo *s);
+void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s);
+void	ft_sky( t_mapinfo *s);
+void	raycasting(t_mapinfo *s);
+void	ft_gun(t_mapinfo *s);
 #endif

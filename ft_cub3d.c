@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 16:08:19 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/16 18:24:04 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/17 20:07:03 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,27 +19,41 @@ int ft_rgb_color_int(int r, int g, int b)
 
 void	fp(t_mapinfo *s)
 {
-	int x;
-	int y;
-
-	x = 64;
-	y = 64;
-	char *str;
-	str = ft_strdup("src/fp2.xpm");
-	s->img_psr = mlx_xpm_file_to_image(s->mlx_ptr, str, &x, &y);
-	//s->img_psrda = mlx_get_data_addr(s->img_psr, &s->bpp, &s->sl, &s->endian);
-	
-	//str = ft_strdup("src/wall.xpm");
-	s->wlone[0] = mlx_xpm_file_to_image(s->mlx_ptr, "src/stone.xpm", &x, &y);
+	s->wlone[0] = mlx_xpm_file_to_image(s->mlx_ptr, s->no, &s->w[0], &s->h[0]);
 	s->wdata[0] = mlx_get_data_addr(s->wlone[0], &s->wbpp[0], &s->wsl[0], &s->wendian[0]);
-	x = 512;
-	y = 512;
-	s->wlone[1] = mlx_xpm_file_to_image(s->mlx_ptr, "src/sky.xpm", &x, &y);
+	s->wlone[1] = mlx_xpm_file_to_image(s->mlx_ptr, "src/sky.xpm", &s->w[1], &s->h[1]);
 	s->wdata[1] = mlx_get_data_addr(s->wlone[1], &s->wbpp[1], &s->wsl[1], &s->wendian[1]);
-	x = 64;
-	y = 64;
-	s->wlone[2] = mlx_xpm_file_to_image(s->mlx_ptr, "src/wood.xpm", &x, &y);
+	s->wlone[2] = mlx_xpm_file_to_image(s->mlx_ptr, s->ea, &s->w[2], &s->h[2]);
 	s->wdata[2] = mlx_get_data_addr(s->wlone[2], &s->wbpp[2], &s->wsl[2], &s->wendian[2]);
+	s->wlone[3] = mlx_xpm_file_to_image(s->mlx_ptr, s->so, &s->w[3], &s->h[3]);
+	s->wdata[3] = mlx_get_data_addr(s->wlone[3], &s->wbpp[3], &s->wsl[3], &s->wendian[3]);
+	s->wlone[4] = mlx_xpm_file_to_image(s->mlx_ptr, s->we, &s->w[4], &s->h[4]);
+	s->wdata[4] = mlx_get_data_addr(s->wlone[4], &s->wbpp[4], &s->wsl[4], &s->wendian[4]);
+	s->wlone[5] = mlx_xpm_file_to_image(s->mlx_ptr, "src/rpg.xpm", &s->w[5], &s->h[5]);
+	s->wdata[5] = mlx_get_data_addr(s->wlone[5], &s->wbpp[5], &s->wsl[5], &s->wendian[5]);
+}
+
+void	ft_gun(t_mapinfo *s)
+{
+	int n;
+	int i;
+	int p;
+
+	i = s-> x / 3;
+	while (i > 0)
+	{
+		p = s-> y / 3;
+		while (p > 0)
+		{
+			n = abs((((p * 256 - s->y * 128 + s->lineHeight * 128) * 64)
+				/ s->lineHeight) / 256);
+			ft_memcpy(s->img_ptr + (s->wbpp[s->id] / 8) * s->x * p + i * (s->wbpp[s->id] / 8),// &s->color, sizeof(int));
+				&s->wdata[5][n % s->w[5] * s->wsl[5] +
+				s->x_text % s->h[5] * s->wbpp[5] / 8], sizeof(int));
+			p--;
+		}
+		i--;
+	}
 }
 
 void	put_pxl_to_img(t_mapinfo *s, int x, int y)
@@ -50,9 +64,9 @@ void	put_pxl_to_img(t_mapinfo *s, int x, int y)
 	{
 		n = abs((((y * 256 - s->y * 128 + s->lineHeight * 128) * 64)
 					/ s->lineHeight) / 256);
-		ft_memcpy(s->img_ptr + 4 * s->x * y + x * 4,// &s->color, sizeof(int));
-				&s->wdata[s->id][n % 64 * s->wsl[s->id] +
-				s->x_text % 64 * s->wbpp[s->id] / 8], sizeof(int));
+		ft_memcpy(s->img_ptr + (s->wbpp[s->id] / 8) * s->x * y + x * (s->wbpp[s->id] / 8),// &s->color, sizeof(int));
+				&s->wdata[s->id][n % s->w[s->id] * s->wsl[s->id] +
+				s->x_text % s->h[s->id] * s->wbpp[s->id] / 8], sizeof(int));
 	}
 }
 
@@ -75,6 +89,7 @@ void	ft_sky( t_mapinfo *s)
 		p++;
 	}
 }
+
 void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s)
 {
 	int j;
@@ -100,14 +115,26 @@ void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s)
 	j = start;
 
 	if (s->side == 0)
+	{
 		s->x_wall = s->posY + s->perpWallDist * s->rayDirY;
+		s->id = 3;
+	}
 	else
+	{
 		s->x_wall = s->posX + s->perpWallDist * s->rayDirX;
+		s->id = 4;
+	} 
 	s->x_text = (int)(s->x_wall * (double)(64));
 	if (s->side == 0 && s->rayDirX > 0)
+	{
 		s->x_text = 64 - s->x_text - 1;
+		s->id = 0;
+	}
 	if (s->side == 1 && s->rayDirY < 0)
+	{
 		s->x_text = 64 - s->x_text - 1;
+		s->id = 2;
+	}
 	s->x_text = abs(s->x_text);
 	while (j <= end)
 		put_pxl_to_img(s, x, j++);
@@ -160,85 +187,7 @@ void	startvars(t_mapinfo *s)
 	mlx_get_data_addr(s->img,  &s->bpp, &s->size_line, &s->endian);*/
 }
 
-void	raycasting(t_mapinfo *s)
-{
-	int n;
 
-	n = 0;
-	s->img = mlx_new_image(s->mlx_ptr, s->x, s->y);
-	s->img_ptr = mlx_get_data_addr(s->img, &s->bpp, &s->sl, &s->endian);
-	//ft_sky(s);
-	while (n < s->x)
-	{
-		s->cameraX = 2 * n / (double)s->x - 1;
-		s->rayDirX = s->dirX + s->planeX * s->cameraX;
-		s->rayDirY = s->dirY + s->planeY * s->cameraX;
-		s->mapX = (int)s->posX;
-		s->mapY = (int)s->posY;
-		s->deltaDistX = fabs((1 / s->rayDirX));
-		s->deltaDistY = fabs((1 / s->rayDirY));
-		s->hit = 0;
-		if (s->rayDirX < 0)
-		{
-			s->stepX = -1;
-			s->sideDistX = (s->posX - s->mapX) * s->deltaDistX;
-		}
-		else
-		{
-			s->stepX = 1;
-			s->sideDistX = (s->mapX + 1.0 - s->posX) * s->deltaDistX;
-		}
-		if (s->rayDirY < 0)
-		{
-			s->stepY = -1;
-			s->sideDistY = (s->posY - s->mapY) * s->deltaDistY;
-		}
-		else
-		{
-			s->stepY = 1;
-			s->sideDistY = (s->mapY + 1.0 - s->posY) * s->deltaDistY;
-		}
-		while (s->hit == 0)
-		{
-			if (s->sideDistX < s->sideDistY)
-			{
-				s->sideDistX += s->deltaDistX;
-				s->mapX += s->stepX;
-				s->side = 0;
-			}
-			else
-			{
-				s->sideDistY += s->deltaDistY;
-				s->mapY += s->stepY;
-				s->side = 1;
-			}
-			if (s->mapn[s->mapX][s->mapY] == 1)
-				s->hit = 1;
-		}
-		if (s->side == 0)
-			s->perpWallDist = (s->mapX - s->posX + (1 - s->stepX) / 2) / s->rayDirX;
-		else
-			s->perpWallDist = (s->mapY - s->posY + (1 - s->stepY) / 2) / s->rayDirY;
-		s->lineHeight = (int)(s->y / s->perpWallDist);
-		s->drawStart = -s->lineHeight / 2 + s->y  / 2;
-		if (s->drawStart < 0)
-			s->drawStart = 0;
-		s->drawEnd = s->lineHeight / 2 + s->y  / 2;
-		if (s->drawEnd >= s->y)
-			s->drawEnd = s->y - 1;
-		if (s->mapn[s->mapX][s->mapY] == 1)
-			s->id = 0;
-		if (s->side == 1)
-			s->id = 2;
-		ft_verLine(n, s->drawStart, s->drawEnd, s->color, s);
-		n++;
-	}
-	//fp(s);
-	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr,  s->img, 0, 0 );
-	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr,  s->img_psr, s->x / 3, s->y - s->y / 3);
-	mlx_destroy_image(s->mlx_ptr, s->img);
-	//mlx_destroy_image(s->mlx_ptr, s->img_psr);
-}
  /*									TECLAS CHACHOOOOOOOOOOOO					*/
 int		pulsed(int key, t_mapinfo *s)
 {
