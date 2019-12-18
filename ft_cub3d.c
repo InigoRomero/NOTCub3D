@@ -31,6 +31,8 @@ void	fp(t_mapinfo *s)
 	s->wdata[4] = mlx_get_data_addr(s->wlone[4], &s->wbpp[4], &s->wsl[4], &s->wendian[4]);
 	s->wlone[5] = mlx_xpm_file_to_image(s->mlx_ptr, "src/rpg.xpm", &s->w[5], &s->h[5]);
 	s->wdata[5] = mlx_get_data_addr(s->wlone[5], &s->wbpp[5], &s->wsl[5], &s->wendian[5]);
+	s->wlone[6] = mlx_xpm_file_to_image(s->mlx_ptr, "src/floor.xpm", &s->w[6], &s->h[6]);
+	s->wdata[6] = mlx_get_data_addr(s->wlone[6], &s->wbpp[6], &s->wsl[6], &s->wendian[6]);
 }
 
 void	ft_gun(t_mapinfo *s)
@@ -40,15 +42,15 @@ void	ft_gun(t_mapinfo *s)
 	int p;
 
 	i = 0;
-	while (i < s->w[5] - s->w[5] / 3)
+	while (i < s->h[5])
 	{
 		p = 0;
 		while (p < s->h[5])
 		{
 			if (s->wdata[5][p % s->w[5] * s->wsl[5] +
-				i % s->h[5] * s->wbpp[5] / 8] > 0)
+				i % s->h[5] * s->wbpp[5] / 8] != 0)
 			{
-			ft_memcpy(s->img_ptr + (s->wbpp[5] / 8) * s->x * (p + s->y - s->h[5]) + (i + s->x - s->w[5]) * (s->wbpp[5] / 8),// &s->color, sizeof(int));
+			ft_memcpy(s->img_ptr + (s->wbpp[5] / 8) * s->x * (p + s->y - s->h[5]) + (i - (s->x / 3) - (s->w[5] / 2)) * (s->wbpp[5] / 8),// &s->color, sizeof(int));
 				&s->wdata[5][p % s->w[5] * s->wsl[5] +
 				i % s->h[5] * s->wbpp[5] / 8], sizeof(int));
 			}
@@ -140,12 +142,19 @@ void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s)
 		j++;
 	}*/
 	j = end;
-	//ft_strjoin(s->img_ptr, s->img_psr);
 	while (j < s->y)
+	{
+		ft_memcpy(s->img_ptr + (s->wbpp[6] / 8) * s->x * j + x * (s->wbpp[6] / 8),// &s->color, sizeof(int));
+			&s->wdata[6][j % s->w[6] * s->wsl[6] +
+			x % s->h[6] * s->wbpp[6] / 8], sizeof(int));
+		j++;
+	}
+	//ft_strjoin(s->img_ptr, s->img_psr);
+	/*while (j < s->y)
 	{
 		ft_memcpy(s->img_ptr + 4 * s->x * j + x * 4, &color2, sizeof(int));
 		j++;
-	}
+	}*/
 }
 
 void	readmap(t_mapinfo *s, char **argv, int argc)
