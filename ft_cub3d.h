@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/17 19:43:02 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/18 20:45:14 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,7 +161,6 @@ int		noffiles(t_mapinfo *s);
 int checkrules(t_mapinfo *s);
 int		deal_key(t_mapinfo *s);
 void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s);
-void	ft_sky( t_mapinfo *s);
 void	raycasting(t_mapinfo *s);
 void	ft_gun(t_mapinfo *s);
 #endif

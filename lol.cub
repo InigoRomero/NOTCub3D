@@ -1,7 +1,7 @@
-R 1400 800 
+R 1500 900 
 NO ./src/stone.xpm
 SO ./src/mossy.xpm
-WE ./src/sky.xpm
+WE ./src/redbrick.xpm
 EA ./src/wood.xpm
 
 S ./path_to_the_sprite_texture

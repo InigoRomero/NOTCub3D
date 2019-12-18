@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:17:51 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/17 20:03:36 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/18 20:45:35 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ void	raycasting(t_mapinfo *s)
 	n = 0;
 	s->img = mlx_new_image(s->mlx_ptr, s->x, s->y);
 	s->img_ptr = mlx_get_data_addr(s->img, &s->bpp, &s->sl, &s->endian);
-	ft_sky(s);
 	while (n < s->x)
 	{
 		s->cameraX = 2 * n / (double)s->x - 1;
@@ -82,10 +81,10 @@ void	raycasting(t_mapinfo *s)
 			s->id = 0;
 		if (s->side == 1)
 			s->id = 2;
+			//ft_sky(s);
 		ft_verLine(n, s->drawStart, s->drawEnd, s->color, s);
 		n++;
 	}
-	//fp(s);
 	ft_gun(s);
 	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr,  s->img, 0, 0 );
 	//mlx_put_image_to_window(s->mlx_ptr, s->win_ptr,  s->img_psr, s->x / 3, s->y - s->y / 3);

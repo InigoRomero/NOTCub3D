@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 16:08:19 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/18 11:44:43 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/18 20:52:54 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,22 @@ void	ft_gun(t_mapinfo *s)
 	int i;
 	int p;
 
-	i = s-> x / 3;
-	while (i > 0)
+	i = 0;
+	while (i < s->w[5] - s->w[5] / 3)
 	{
-		p = s-> y / 3;
-		while (p > 0)
+		p = 0;
+		while (p < s->h[5])
 		{
-			n = abs((((p * 256 - s->y * 128 + s->lineHeight * 128) * 64)
-				/ s->lineHeight) / 256);
-			ft_memcpy(s->img_ptr + (s->wbpp[5] / 8) * s->x * p + i * (s->wbpp[5] / 8),// &s->color, sizeof(int));
-				&s->wdata[5][n % s->w[5] * s->wsl[5] +
-				s->x_text % s->h[5] * s->wbpp[5] / 8], sizeof(int));
-			p--;
+			if (s->wdata[5][p % s->w[5] * s->wsl[5] +
+				i % s->h[5] * s->wbpp[5] / 8] > 0)
+			{
+			ft_memcpy(s->img_ptr + (s->wbpp[5] / 8) * s->x * (p + s->y - s->h[5]) + (i + s->x - s->w[5]) * (s->wbpp[5] / 8),// &s->color, sizeof(int));
+				&s->wdata[5][p % s->w[5] * s->wsl[5] +
+				i % s->h[5] * s->wbpp[5] / 8], sizeof(int));
+			}
+			p++;
 		}
-		i--;
+		i++;
 	}
 }
 
@@ -70,25 +72,6 @@ void	put_pxl_to_img(t_mapinfo *s, int x, int y)
 	}
 }
 
-void	ft_sky( t_mapinfo *s)
-{
-	int j;
-	int p;
-
-	p = 0;
-	while (p < s->x)
-	{
-		j = 0;
-		while (j < s->y / 2)
-		{
-			ft_memcpy(s->img_ptr + 4 * s->x * j + j * 4,
-				&s->wdata[1][j % 512 * s->wsl[1] +
-				p % 512 * s->wbpp[1] / 9], sizeof(int));
-			j++;
-		}
-		p++;
-	}
-}
 
 void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s)
 {
@@ -99,11 +82,23 @@ void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s)
 	count = 0;
 	color2 = 293994;
 	j = 0;
-	while (j < start)
+	/*while (j < start)
 	{
 		ft_memcpy(s->img_ptr + 4 * s->x * j + x * 4, &color2, sizeof(int));
 		j++;
-	}
+	}*/
+	int p;
+
+	p = 0;
+		j = 0;
+		while (j < s->drawStart)
+		{
+			ft_memcpy(s->img_ptr + (s->wbpp[1] / 8) * s->x * j + x * (s->wbpp[1] / 8),// &s->color, sizeof(int));
+				&s->wdata[1][j % 512 * s->wsl[1] +
+				x % 512 * s->wbpp[1] / 8], sizeof(int));
+			j++;
+		}
+
 	/*j = 0;
 	while (j < start)
 	{
