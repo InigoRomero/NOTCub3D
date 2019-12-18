@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 16:08:19 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/17 20:07:03 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/18 11:44:43 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_gun(t_mapinfo *s)
 		{
 			n = abs((((p * 256 - s->y * 128 + s->lineHeight * 128) * 64)
 				/ s->lineHeight) / 256);
-			ft_memcpy(s->img_ptr + (s->wbpp[s->id] / 8) * s->x * p + i * (s->wbpp[s->id] / 8),// &s->color, sizeof(int));
+			ft_memcpy(s->img_ptr + (s->wbpp[5] / 8) * s->x * p + i * (s->wbpp[5] / 8),// &s->color, sizeof(int));
 				&s->wdata[5][n % s->w[5] * s->wsl[5] +
 				s->x_text % s->h[5] * s->wbpp[5] / 8], sizeof(int));
 			p--;
@@ -175,16 +175,8 @@ void	startvars(t_mapinfo *s)
 	s->planeY = 0.66;
 	s->moveSpeed = 0.08;
 	s->rotSpeed = 0.05;
-	/*s->width = 400;
-	s->height = 400;
-	s->bpp = 0;
-	s->size_line = 0;
-	s->endian = 0;
-	char *pop;
-
-	pop = ft_strdup("wall.xpm");
-	tru->img = mlx_xpm_to_image(s->mlx_ptr, &pop,&s->width, &s->height);
-	mlx_get_data_addr(s->img,  &s->bpp, &s->size_line, &s->endian);*/
+	s->mlx_ptr = NULL;
+	s->win_ptr = NULL;
 }
 
 
