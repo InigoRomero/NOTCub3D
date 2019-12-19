@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/18 20:45:14 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/19 18:13:52 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,18 +82,19 @@ typedef struct		s_vars
 	void	*win_ptr;
 	char	*img;
 	char 	*img_ptr;
+	char 	*img_ptr2;
 	char 	*img_psr;
 	char 	*img_psrda;
-	char	*wlone[7];
-	char	*wdata[7];
+	char	*wlone[9];
+	char	*wdata[9];
 	int		bpp;
 	int		sl;
 	int		endian;
-	int		wbpp[7];
-	int		wsl[7];
-	int		wendian[7];
-	int		h[7];
-	int		w[7];
+	int		wbpp[9];
+	int		wsl[9];
+	int		wendian[9];
+	int		h[9];
+	int		w[9];
 	char	*map;
 	int		x;
 	int		y;
@@ -132,6 +133,11 @@ typedef struct		s_vars
 	int		lineHeight;
 	int		drawStart;
 	int		drawEnd;
+	int		obstart;
+	int		obend;
+	int		obj;
+	int		objposx;
+	int		objposy;
 	int		color;
 	double	moveSpeed;
 	double	frameTime;
@@ -152,6 +158,9 @@ typedef struct		s_vars
 	int		x_text;
 	double	x_wall;
 	int		id;
+	int		fpposx;
+	int		fpposy;
+	int		count;
 }					t_mapinfo;
 
 void	getinfo(t_mapinfo *s, char *buffer);

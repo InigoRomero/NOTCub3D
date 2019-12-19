@@ -6,11 +6,21 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:17:51 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/18 20:45:35 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/19 21:37:54 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
+
+void	calcularobj(t_mapinfo *s)
+{
+		s->obstart =   s->drawEnd - s->w[7];
+		if (s->obstart < 0)
+			s->obstart = 0;
+		s->obend = s->y;
+		if (s->obend >= s->y)
+			s->obend = s->drawEnd  + s->w[7];
+}
 
 void	raycasting(t_mapinfo *s)
 {
@@ -21,6 +31,7 @@ void	raycasting(t_mapinfo *s)
 	s->img_ptr = mlx_get_data_addr(s->img, &s->bpp, &s->sl, &s->endian);
 	while (n < s->x)
 	{
+		s->obj = 0;
 		s->cameraX = 2 * n / (double)s->x - 1;
 		s->rayDirX = s->dirX + s->planeX * s->cameraX;
 		s->rayDirY = s->dirY + s->planeY * s->cameraX;
@@ -63,6 +74,12 @@ void	raycasting(t_mapinfo *s)
 				s->mapY += s->stepY;
 				s->side = 1;
 			}
+			if (s->mapn[s->mapX][s->mapY] == -1)
+			{
+				s->obj = 1;
+				s->objposy = s->mapY;
+				s->objposx = s->mapX;
+			}
 			if (s->mapn[s->mapX][s->mapY] == 1)
 				s->hit = 1;
 		}
@@ -70,23 +87,23 @@ void	raycasting(t_mapinfo *s)
 			s->perpWallDist = (s->mapX - s->posX + (1 - s->stepX) / 2) / s->rayDirX;
 		else
 			s->perpWallDist = (s->mapY - s->posY + (1 - s->stepY) / 2) / s->rayDirY;
-		s->lineHeight = (int)(s->y / s->perpWallDist);
+		s->lineHeight = (int)(s->x / s->perpWallDist);
+		 //calculate lowest and highest pixel to fill in current stripe
 		s->drawStart = -s->lineHeight / 2 + s->y  / 2;
 		if (s->drawStart < 0)
 			s->drawStart = 0;
 		s->drawEnd = s->lineHeight / 2 + s->y  / 2;
 		if (s->drawEnd >= s->y)
 			s->drawEnd = s->y - 1;
-		if (s->mapn[s->mapX][s->mapY] == 1)
-			s->id = 0;
-		if (s->side == 1)
-			s->id = 2;
-			//ft_sky(s);
+		if (s->obj == 1)
+			calcularobj(s);
 		ft_verLine(n, s->drawStart, s->drawEnd, s->color, s);
 		n++;
 	}
-	ft_gun(s);
+	s->count = 0;
+	//ft_gun(s);
 	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr,  s->img, 0, 0 );
+	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr,  s->wlone[5], s->fpposx, s->fpposy );
 	//mlx_put_image_to_window(s->mlx_ptr, s->win_ptr,  s->img_psr, s->x / 3, s->y - s->y / 3);
 	mlx_destroy_image(s->mlx_ptr, s->img);
 	//mlx_destroy_image(s->mlx_ptr, s->img_psr);
