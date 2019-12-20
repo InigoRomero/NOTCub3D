@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:04:33 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/16 12:42:43 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/20 17:31:50 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ void		maptoarray(t_mapinfo *s)
 			s->mapn[i][y] = s->map[n] - 48;
 			n += 2;
 			if (s->mapn[i][y] == 2)
-				s->mapn[i][y] = -1;
+				s->mapn[i][y] = 2;
 			if (s->mapn[i][y] > 2)
 			{
 				getdirandpos(s, s->mapn[i][y], i, y);

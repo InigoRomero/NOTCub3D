@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/19 18:13:52 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/20 20:37:57 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct		s_vars
 	double	deltaDistX;
 	double	deltaDistY;
 	double	perpWallDist;
+	double	objdist;
 	int		stepX;
 	int		stepY;
 	int		hit;

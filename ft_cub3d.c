@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 16:08:19 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/19 21:38:19 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/20 21:51:01 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	fp(t_mapinfo *s)
 	s->wdata[3] = mlx_get_data_addr(s->wlone[3], &s->wbpp[3], &s->wsl[3], &s->wendian[3]);
 	s->wlone[4] = mlx_xpm_file_to_image(s->mlx_ptr, s->we, &s->w[4], &s->h[4]);
 	s->wdata[4] = mlx_get_data_addr(s->wlone[4], &s->wbpp[4], &s->wsl[4], &s->wendian[4]);
-	s->wlone[5] = mlx_xpm_file_to_image(s->mlx_ptr, "src/fp3.xpm", &s->w[5], &s->h[5]);
+	s->wlone[5] = mlx_xpm_file_to_image(s->mlx_ptr, "src/gun1.xpm", &s->w[5], &s->h[5]);
 	s->wdata[5] = mlx_get_data_addr(s->wlone[5], &s->wbpp[5], &s->wsl[5], &s->wendian[5]);
 	s->wlone[6] = mlx_xpm_file_to_image(s->mlx_ptr, "src/floor.xpm", &s->w[6], &s->h[6]);
 	s->wdata[6] = mlx_get_data_addr(s->wlone[6], &s->wbpp[6], &s->wsl[6], &s->wendian[6]);
@@ -71,7 +71,7 @@ void	put_pxl_to_img(t_mapinfo *s, int x, int y)
 	{
 		n = abs((((y * 256 - s->y * 128 + s->lineHeight * 128) * 64)
 					/ s->lineHeight) / 256);
-		ft_memcpy(s->img_ptr + (s->wbpp[s->id] / 8) * s->x * y + x * (s->wbpp[s->id] / 8),// &s->color, sizeof(int));
+		ft_memcpy(s->img_ptr + (s->wbpp[s->id] / 8) * s->x * y + x * (s->wbpp[s->id] / 8),
 				&s->wdata[s->id][n % s->w[s->id] * s->wsl[s->id] +
 				s->x_text % s->h[s->id] * s->wbpp[s->id] / 8], sizeof(int));
 	}
@@ -96,7 +96,7 @@ void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s)
 		j = 0;
 		while (j < s->drawStart)
 		{
-			ft_memcpy(s->img_ptr + (s->wbpp[1] / 8) * s->x * j + x * (s->wbpp[1] / 8),// &s->color, sizeof(int));
+			ft_memcpy(s->img_ptr + (s->wbpp[1] / 8) * s->x * j + x * (s->wbpp[1] / 8),
 				&s->wdata[1][j % 512 * s->wsl[1] +
 				x % 512 * s->wbpp[1] / 8], sizeof(int));
 			j++;
@@ -145,7 +145,7 @@ void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s)
 	j = end;
 	while (j < s->y)
 	{
-			ft_memcpy(s->img_ptr + (s->wbpp[1] / 8) * s->x * j + x * (s->wbpp[1] / 8),// &s->color, sizeof(int));
+			ft_memcpy(s->img_ptr + (s->wbpp[1] / 8) * s->x * j + x * (s->wbpp[1] / 8),
 			&s->wdata[1][j % s->w[1] * s->wsl[1] +
 			x % s->h[1] * s->wbpp[1] / 8], sizeof(int));
 		j++;
@@ -159,15 +159,31 @@ void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s)
 
 	//OBJETOSSSS
 	int n;
-	if (s->obj == 1 )
+	if (s->obj == 1)
 	{
+		j = s->obstart;
 		while (j < s->obend)
 		{
-			ft_memcpy(s->img_ptr + (s->wbpp[7] / 8) * s->x * j + x  * (s->wbpp[7] / 8),// &s->color, sizeof(int));
-			&s->wdata[7][j % s->w[7] * s->wsl[7] +
-			x % s->h[7] * s->wbpp[7] / 8], sizeof(int));
+			if(s->wdata[7][j % s->h[7] * s->wsl[7] +
+			x % s->w[7] * s->wbpp[7] / 8] != 0)
+				ft_memcpy(s->img_ptr + (s->wbpp[7] / 8) * s->x * j + x  * (s->wbpp[7] / 8),
+				&s->wdata[7][j % s->h[7] * s->wsl[7] +
+				x % s->w[7] * s->wbpp[7] / 8], sizeof(int));
 			j++;
 		}
+		s->id = 7;
+		/*if (s->side == 0)
+			s->x_wall = s->posY + s->perpWallDist * s->rayDirY;
+		else
+			s->x_wall = s->posX + s->perpWallDist * s->rayDirX;
+		s->x_text = (int)(s->x_wall * (double)(64));
+		if (s->side == 0 && s->rayDirX > 0)
+			s->x_text = 64 - s->x_text - 1;
+		if (s->side == 1 && s->rayDirY < 0)
+			s->x_text = 64 - s->x_text - 1;
+		s->x_text = abs(s->x_text);
+		while (j <= s->obend)
+			put_pxl_to_img(s, x, j++);*/
 	}
 }
 
@@ -251,31 +267,31 @@ int		deal_key(t_mapinfo *s)
 	raycasting(s);
 	if (s->presedw == 1)
 	{
-		if (!(s->mapn[(int)(s->posX + s->dirX * s->moveSpeed)][(int)s->posY]))
+		if ((s->mapn[(int)(s->posX + s->dirX * s->moveSpeed)][(int)s->posY]) != 1)
 			s->posX += s->dirX * s->moveSpeed;
-		if(!(s->mapn[(int)s->posX][(int)(s->posY + s->dirY * s->moveSpeed)]))
+		if((s->mapn[(int)s->posX][(int)(s->posY + s->dirY * s->moveSpeed)]) != 1)
 			s->posY += s->dirY * s->moveSpeed;
 	}
 	if (s->preseds == 1)
 	{
-		if (!(s->mapn[(int)(s->posX - s->dirX * s->moveSpeed)][(int)s->posY]))
+		if ((s->mapn[(int)(s->posX - s->dirX * s->moveSpeed)][(int)s->posY]) != 1)
 			s->posX -= s->dirX * s->moveSpeed;
-		if (!(s->mapn[(int)s->posX][(int)(s->posY - s->dirY * s->moveSpeed)]))
+		if ((s->mapn[(int)s->posX][(int)(s->posY - s->dirY * s->moveSpeed)]) != 1)
 			s->posY -= s->dirY * s->moveSpeed;
 	}
 	if (s->preseda == 1)
 	{
-		if (!(s->mapn[(int)(s->posX - s->dirY * s->moveSpeed)][(int)s->posY]))
+		if ((s->mapn[(int)(s->posX - s->dirY * s->moveSpeed)][(int)s->posY]) != 1)
 			s->posX -= s->dirY * s->moveSpeed;
-		if(!(s->mapn[(int)s->posX][(int)(s->posY + s->dirX * s->moveSpeed)]))
+		if((s->mapn[(int)s->posX][(int)(s->posY + s->dirX * s->moveSpeed)]) != 1)
 			s->posY += s->dirX * s->moveSpeed;
 	}
 	if (s->presedd == 1)
 	{
 
-		if (!(s->mapn[(int)(s->posX + s->dirY * s->moveSpeed)][(int)s->posY]))
+		if ((s->mapn[(int)(s->posX + s->dirY * s->moveSpeed)][(int)s->posY]) != 1)
 			s->posX += s->dirY * s->moveSpeed;
-		if(!(s->mapn[(int)s->posX][(int)(s->posY - s->dirX * s->moveSpeed)]))
+		if((s->mapn[(int)s->posX][(int)(s->posY - s->dirX * s->moveSpeed)]) != 1)
 			s->posY -= s->dirX * s->moveSpeed;
 	}
 	if (s->presedl == 1)
