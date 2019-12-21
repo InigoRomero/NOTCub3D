@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/20 20:37:57 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/21 19:25:25 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,10 @@ typedef struct		s_vars
 	int		fpposx;
 	int		fpposy;
 	int		count;
+	int		alturalinea;
+	int		obx;
+	int		oby;
+	int		score;
 }					t_mapinfo;
 
 void	getinfo(t_mapinfo *s, char *buffer);
