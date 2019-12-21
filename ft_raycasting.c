@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:17:51 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/21 19:31:20 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/21 20:04:55 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,18 +30,16 @@ void	calcularobj(t_mapinfo *s)
 
 void	raycasting(t_mapinfo *s)
 {
-	int n;
-
-	n = 0;
+	s->cox = 0;
 	s->obx = 0;
 	s->oby = 0;
 	s->img = mlx_new_image(s->mlx_ptr, s->x, s->y);
 	s->img_ptr = mlx_get_data_addr(s->img, &s->bpp, &s->sl, &s->endian);
 	s->wlone[7] = mlx_xpm_file_to_image(s->mlx_ptr, "src/obj.xpm", &s->w[7], &s->h[7]);
 	s->wdata[7] = mlx_get_data_addr(s->wlone[7], &s->wbpp[7], &s->wsl[7], &s->wendian[7]);
-	while (n < s->x)
+	while (s->cox < s->x)
 	{
-		s->cameraX = 2 * n / (double)s->x - 1;
+		s->cameraX = 2 * s->cox / (double)s->x - 1;
 		s->rayDirX = s->dirX + s->planeX * s->cameraX;
 		s->rayDirY = s->dirY + s->planeY * s->cameraX;
 		s->mapX = (int)s->posX;
@@ -114,8 +112,8 @@ void	raycasting(t_mapinfo *s)
 			s->drawEnd = s->y - 1;
 		if (s->obj == 1)
 		calcularobj(s);
-		ft_verLine(n, s->drawStart, s->drawEnd, s->color, s);
-		n++;
+		ft_verline(s);
+		s->cox++;
 			s->obj = 0;
 	}
 	s->count = 0;

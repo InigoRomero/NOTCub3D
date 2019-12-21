@@ -6,10 +6,9 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 18:38:25 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/21 19:26:35 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/21 19:39:32 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "ft_cub3d.h"
 
@@ -30,140 +29,12 @@ void	fp(t_mapinfo *s)
 	s->wdata[3] = mlx_get_data_addr(s->wlone[3], &s->wbpp[3], &s->wsl[3], &s->wendian[3]);
 	s->wlone[4] = mlx_xpm_file_to_image(s->mlx_ptr, s->we, &s->w[4], &s->h[4]);
 	s->wdata[4] = mlx_get_data_addr(s->wlone[4], &s->wbpp[4], &s->wsl[4], &s->wendian[4]);
-	s->wlone[5] = mlx_xpm_file_to_image(s->mlx_ptr, "src/gun1.xpm", &s->w[5], &s->h[5]);
+	s->wlone[5] = mlx_xpm_file_to_image(s->mlx_ptr, "src/fp3.xpm", &s->w[5], &s->h[5]);
 	s->wdata[5] = mlx_get_data_addr(s->wlone[5], &s->wbpp[5], &s->wsl[5], &s->wendian[5]);
 	s->wlone[6] = mlx_xpm_file_to_image(s->mlx_ptr, "src/Floor.xpm", &s->w[6], &s->h[6]);
 	s->wdata[6] = mlx_get_data_addr(s->wlone[6], &s->wbpp[6], &s->wsl[6], &s->wendian[6]);
 	s->wlone[7] = mlx_xpm_file_to_image(s->mlx_ptr, "src/wood.xpm", &s->w[7], &s->h[7]);
 	s->wdata[7] = mlx_get_data_addr(s->wlone[7], &s->wbpp[7], &s->wsl[7], &s->wendian[7]);
-}
-
-void	put_pxl_to_img(t_mapinfo *s, int x, int y)
-{
-	int n;
-	
-	if (x < s->x && y < s->y)
-	{
-		n = abs((((y * (s->h[s->id] * 4) - s->y * (s->h[s->id] * 2) + s->lineHeight * (s->h[s->id] * 2)) * s->h[s->id])
-					/ s->lineHeight) / (s->h[s->id] * 4));
-		ft_memcpy(s->img_ptr + (s->wbpp[s->id] / 8) * s->x * y + x * (s->wbpp[s->id] / 8),
-				&s->wdata[s->id][n % s->h[s->id] * s->wsl[s->id] +
-				s->x_text % s->w[s->id] * s->wbpp[s->id] / 8], sizeof(int));
-	}
-}
-
-
-void	ft_verLine(int x, int start, int end, int color, t_mapinfo *s)
-{
-	int j;
-	int color2;
-
-	color2 = 293994;
-	j = 0;
-	/*while (j < start)
-	{
-		ft_memcpy(s->img_ptr + 4 * s->x * j + x * 4, &color2, sizeof(int));
-		j++;
-	}*/
-	int p;
-
-	p = 0;
-		j = 0;
-		while (j < s->drawStart)
-		{
-			ft_memcpy(s->img_ptr + (s->wbpp[1] / 8) * s->x * j + x * (s->wbpp[1] / 8),
-				&s->wdata[1][j % 512 * s->wsl[1] +
-				x % 512 * s->wbpp[1] / 8], sizeof(int));
-			j++;
-		}
-
-	/*j = 0;
-	while (j < start)
-	{
-		ft_memcpy(s->img_ptr + 4 * s->x * j + j * 4,
-			&s->wdata[1][j % 512 * s->wsl[1] +
-			x % 512 * s->wbpp[1] / 8], sizeof(int));
-		j++;
-	}*/
-	j = start;
-
-	if (s->side == 0)
-	{
-		s->id = 3;
-		s->x_wall = s->posY + s->perpWallDist * s->rayDirY;
-	}
-	else
-	{
-		s->id = 4;
-		s->x_wall = s->posX + s->perpWallDist * s->rayDirX;
-	}
-	if (s->side == 0 && s->rayDirX > 0)
-		s->id = 2;
-	if (s->side == 1 && s->rayDirY < 0)
-		s->id = 0;
-	s->x_text = (int)(s->x_wall * (double)s->w[s->id]);
-	s->x_text = abs(s->x_text);
-	while (j <= end)
-		put_pxl_to_img(s, x, j++);
-
-	/*while (j < end)
-	{
-		ft_memcpy(s->img_ptr + 4 * s->x * j + x * 4, &color, sizeof(int));
-		j++;
-	}*/
-	int n;
-	/*s->id = 6;
-	while (j <= s->y)
-	{
-		if (x < s->x && j < s->y)
-		{
-			n = abs((((j * (s->h[s->id] * 4) - s->y * (s->h[s->id] * 2)  * (s->h[s->id] * 2)) * s->h[s->id])
-						/ s->lineHeight) / (s->h[s->id] * 4));
-			ft_memcpy(s->img_ptr + (s->wbpp[s->id] / 8) * s->x * j + x * (s->wbpp[s->id] / 8),
-					&s->wdata[6][j % s->w[6] * s->wsl[6] +
-					n % s->h[6] * s->wbpp[6] / 8], sizeof(int));
-		}
-		j++;
-	}*/
-	/*
-	while (j < s->y)
-	{
-			ft_memcpy(s->img_ptr + (s->wbpp[6] / 8) * s->x * j + x * (s->wbpp[6] / 8),
-			&s->wdata[6][j % s->w[6] * s->wsl[6] +
-			x % s->h[6] * s->wbpp[6] / 8], sizeof(int));
-		j++;
-	}*/
-	//ft_strjoin(s->img_ptr, s->img_psr);
-	while (j < s->y)
-	{
-		ft_memcpy(s->img_ptr + 4 * s->x * j + x * 4, &color2, sizeof(int));
-		j++;
-	}
-
-	//OBJETOSSSS
-	if (s->obj == 1)
-	{
-		s->id = 7;
-		s->count++;
-		j = s->obstart;
-		if (s->side == 0)
-			s->x_wall = s->posY + s->perpWallDist * s->rayDirY;
-		else
-			s->x_wall = s->posX + s->perpWallDist * s->rayDirX;
-		s->x_text = (int)(s->x_wall * (double)s->w[s->id]);
-		s->x_text = abs(s->x_text);
-		while (j < s->obend && j - s->obstart < s->h[7] && s->count < s->w[7])
-		{
-			if(s->wdata[7][s->oby % s->h[7] * s->wsl[7] +
-			s->obx % s->w[7] * s->wbpp[7] / 8] != 0)
-				ft_memcpy(s->img_ptr + (s->wbpp[7] / 8) * s->x * j + x * (s->wbpp[7] / 8),
-				&s->wdata[7][s->oby % s->h[7] * s->wsl[7] +
-				s->obx % s->w[7] * s->wbpp[7] / 8], sizeof(int));
-			s->oby++;
-			j++;
-		}
-		s->obx++;
-	}
 }
 
 void	readmap(t_mapinfo *s, char **argv, int argc)
