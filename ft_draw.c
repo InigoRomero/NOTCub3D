@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 19:38:44 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/21 20:04:31 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/22 17:54:33 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	put_pxl_to_img(t_mapinfo *s, int x, int y)
 	if (x < s->x && y < s->y)
 	{
 		n = abs((((y * (s->h[s->id] * 4) - s->y * (s->h[s->id] * 2)
-			+ s->lineHeight * (s->h[s->id] * 2)) * s->h[s->id])
-					/ s->lineHeight) / (s->h[s->id] * 4));
+			+ s->lineheight * (s->h[s->id] * 2)) * s->h[s->id])
+					/ s->lineheight) / (s->h[s->id] * 4));
 		ft_memcpy(s->img_ptr + (s->wbpp[s->id] / 8) * s->x * y
 			+ x * (s->wbpp[s->id] / 8),
 				&s->wdata[s->id][n % s->h[s->id] * s->wsl[s->id] +
@@ -28,8 +28,27 @@ void	put_pxl_to_img(t_mapinfo *s, int x, int y)
 	}
 }
 
+void	printhp(t_mapinfo *s)
+{
+	int j;
+
+	j = 60;
+	while (j - 60 < (int)s->hp)
+	{
+		ft_memcpy(s->img_ptr + 4 * s->x * 10 + j * 4, &s->color2, sizeof(int));
+		ft_memcpy(s->img_ptr + 4 * s->x * 11 + j * 4, &s->color2, sizeof(int));
+		ft_memcpy(s->img_ptr + 4 * s->x * 12 + j * 4, &s->color2, sizeof(int));
+		ft_memcpy(s->img_ptr + 4 * s->x * 13 + j * 4, &s->color2, sizeof(int));
+		ft_memcpy(s->img_ptr + 4 * s->x * 14 + j * 4, &s->color2, sizeof(int));
+		ft_memcpy(s->img_ptr + 4 * s->x * 15 + j * 4, &s->color2, sizeof(int));
+		j++;
+	}
+}
+
 void	auxlinetwo(t_mapinfo *s)
 {
+	s->x_text = (int)(s->x_wall * (double)s->w[s->id]);
+	s->x_text = abs(s->x_text);
 	while (s->j < s->obend && s->j - s->obstart <
 		s->h[7] && s->count < s->w[7])
 	{
@@ -47,11 +66,11 @@ void	auxlinetwo(t_mapinfo *s)
 
 void	auxline(t_mapinfo *s)
 {
-	if (s->side == 1 && s->rayDirY < 0)
+	if (s->side == 1 && s->raydiry < 0)
 		s->id = 0;
 	s->x_text = (int)(s->x_wall * (double)s->w[s->id]);
 	s->x_text = abs(s->x_text);
-	while (s->j <= s->drawEnd)
+	while (s->j <= s->drawend)
 		put_pxl_to_img(s, s->cox, s->j++);
 	while (s->j < s->y)
 	{
@@ -59,26 +78,25 @@ void	auxline(t_mapinfo *s)
 			s->cox * 4, &s->color2, sizeof(int));
 		s->j++;
 	}
-	if (s->obj == 1)
+	if (s->obj > 0)
 	{
 		s->id = 7;
 		s->count++;
 		s->j = s->obstart;
 		if (s->side == 0)
-			s->x_wall = s->posY + s->perpWallDist * s->rayDirY;
+			s->x_wall = s->posy + s->perpwalldist * s->raydiry;
 		else
-			s->x_wall = s->posX + s->perpWallDist * s->rayDirX;
-		s->x_text = (int)(s->x_wall * (double)s->w[s->id]);
-		s->x_text = abs(s->x_text);
+			s->x_wall = s->posx + s->perpwalldist * s->raydirx;
 		auxlinetwo(s);
 	}
+	printhp(s);
 }
 
 void	ft_verline(t_mapinfo *s)
 {
 	s->color2 = 293994;
 	s->j = 0;
-	while (s->j < s->drawStart)
+	while (s->j < s->drawstart)
 	{
 		ft_memcpy(s->img_ptr + (s->wbpp[1] / 8) * s->x *
 			s->j + s->cox * (s->wbpp[1] / 8),
@@ -86,19 +104,18 @@ void	ft_verline(t_mapinfo *s)
 			s->cox % 512 * s->wbpp[1] / 8], sizeof(int));
 		s->j++;
 	}
-	s->j = s->drawStart;
-
+	s->j = s->drawstart;
 	if (s->side == 0)
 	{
 		s->id = 3;
-		s->x_wall = s->posY + s->perpWallDist * s->rayDirY;
+		s->x_wall = s->posy + s->perpwalldist * s->raydiry;
 	}
 	else
 	{
 		s->id = 4;
-		s->x_wall = s->posX + s->perpWallDist * s->rayDirX;
+		s->x_wall = s->posx + s->perpwalldist * s->raydirx;
 	}
-	if (s->side == 0 && s->rayDirX > 0)
+	if (s->side == 0 && s->raydirx > 0)
 		s->id = 2;
 	auxline(s);
 }

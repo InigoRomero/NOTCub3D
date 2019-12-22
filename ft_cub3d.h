@@ -6,12 +6,12 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/21 20:04:40 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/22 17:16:01 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef LIBFTPRINTF_H
-# define LIBFTPRINTF_H
+#ifndef FT_CUB3D_H
+# define FT_CUB3D_H
 
 # define KEY_A 0
 # define KEY_S 1
@@ -66,119 +66,129 @@
 # define DIRW 39
 # define DIRE 21
 # define DIRS 35
-#include <unistd.h>
-#include <stdlib.h>
-#include <sys/stat.h>
-#include <fcntl.h>
-#include <stdio.h>
-#include <math.h>
-#include "minilibx/mlx.h"
-#include "libft/libft.h"
-#include "gnl/get_next_line.h"
+# include <unistd.h>
+# include <stdlib.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <stdio.h>
+# include <math.h>
+# include "minilibx/mlx.h"
+# include "libft/libft.h"
+# include "gnl/get_next_line.h"
 
 typedef struct		s_vars
 {
-	void	*mlx_ptr;
-	void	*win_ptr;
-	char	*img;
-	char 	*img_ptr;
-	char 	*img_ptr2;
-	char 	*img_psr;
-	char 	*img_psrda;
-	char	*wlone[9];
-	char	*wdata[9];
-	int		bpp;
-	int		sl;
-	int		endian;
-	int		wbpp[9];
-	int		wsl[9];
-	int		wendian[9];
-	int		h[9];
-	int		w[9];
-	char	*map;
-	int		x;
-	int		y;
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-	char	*s;
-	char	*f;
-	char	*c;
-	char	**mapn;
-	int		width;
-	int		height;
-	double	posX;
-	double	posY;
-	double	dirX;
-	double	dirY;
-	double	planeX;
-	double	planeY;
-	double	time;
-	double	oldtime;
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	int		mapX;
-	int		mapY;
-	double	sideDistX;
-    double	sideDistY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double	perpWallDist;
-	double	objdist;
-	int		stepX;
-	int		stepY;
-	int		hit;
-	int		side;
-	int		lineHeight;
-	int		drawStart;
-	int		drawEnd;
-	int		obstart;
-	int		obend;
-	int		obj;
-	int		objposx;
-	int		objposy;
-	int		color;
-	double	moveSpeed;
-	double	frameTime;
-	double	rotSpeed;
-	double	oldDirX;
-	double	oldDirY;
-	double	oldPlaneX;
-	double	oldPlaneY;
-	int		initialdir;
-	int		preseda;
-	int		presedw;
-	int		presedl;
-	int		presedr;
-	int		preseds;
-	int		presedd;
-	int		presedesq;
-	int		presshift;
-	int		x_text;
-	double	x_wall;
-	int		id;
-	int		fpposx;
-	int		fpposy;
-	int		count;
-	int		alturalinea;
-	int		obx;
-	int		oby;
-	int		score;
-	int		color2;
-	int		j;
-	int		cox;
+	void			*mlx_ptr;
+	void			*win_ptr;
+	char			*img;
+	char			*img_ptr;
+	char			*img_ptr2;
+	char			*img_psr;
+	char			*img_psrda;
+	char			*wlone[9];
+	char			*wdata[9];
+	int				bpp;
+	int				sl;
+	int				endian;
+	int				wbpp[9];
+	int				wsl[9];
+	int				wendian[9];
+	int				h[9];
+	int				w[9];
+	char			*map;
+	int				x;
+	int				y;
+	char			*no;
+	char			*so;
+	char			*we;
+	char			*ea;
+	char			*s;
+	char			*f;
+	char			*c;
+	int				**mapn;
+	int				width;
+	int				height;
+	double			posx;
+	double			posy;
+	double			dirx;
+	double			diry;
+	double			planex;
+	double			planey;
+	double			time;
+	double			oldtime;
+	double			camerax;
+	double			raydirx;
+	double			raydiry;
+	int				mapx;
+	int				mapy;
+	double			sidedistx;
+	double			sidedisty;
+	double			deltadistx;
+	double			deltadisty;
+	double			perpwalldist;
+	double			objdist;
+	int				stepx;
+	int				stepy;
+	int				hit;
+	int				side;
+	int				lineheight;
+	int				drawstart;
+	int				drawend;
+	int				obstart;
+	int				obend;
+	int				obj;
+	int				objposx;
+	int				objposy;
+	int				color;
+	double			movespeed;
+	double			frametime;
+	double			rotspeed;
+	double			olddirx;
+	double			olddiry;
+	double			oldplanex;
+	double			oldplaney;
+	int				initialdir;
+	int				preseda;
+	int				presedw;
+	int				presedl;
+	int				presedr;
+	int				preseds;
+	int				presedd;
+	int				presedesq;
+	int				presshift;
+	int				x_text;
+	double			x_wall;
+	int				id;
+	int				fpposx;
+	int				fpposy;
+	int				count;
+	int				alturalinea;
+	int				obx;
+	int				oby;
+	int				score;
+	int				color2;
+	int				j;
+	int				cox;
+	double			hp;
 }					t_mapinfo;
 
-void	getinfo(t_mapinfo *s, char *buffer);
-void	maptoarray(t_mapinfo *s);
-int		noflines(t_mapinfo *s);
-int		noffiles(t_mapinfo *s);
-int checkrules(t_mapinfo *s);
-int		deal_key(t_mapinfo *s);
-void	ft_verline(t_mapinfo *s);
-void	raycasting(t_mapinfo *s);
-void	ft_gun(t_mapinfo *s);
-void	put_pxl_to_img(t_mapinfo *s, int x, int y);
+void				getinfo(t_mapinfo *s, char *buffer);
+void				maptoarray(t_mapinfo *s);
+int					noflines(t_mapinfo *s);
+int					noffiles(t_mapinfo *s);
+int					checkrules(t_mapinfo *s);
+int					deal_key(t_mapinfo *s);
+void				ft_verline(t_mapinfo *s);
+void				raycasting(t_mapinfo *s);
+void				ft_gun(t_mapinfo *s);
+void				put_pxl_to_img(t_mapinfo *s, int x, int y);
+void				calcularobj(t_mapinfo *s);
+void				to_img(t_mapinfo *s);
+void				openall(t_mapinfo *s);
+void				startvars(t_mapinfo *s);
+void				readmap(t_mapinfo *s, char **argv, int argc);
+int					nopulsed(int key, t_mapinfo *s);
+int					pulsed(int eky, t_mapinfo *s);
+void				fp(t_mapinfo *s);
+int					checkname(char **argv);
 #endif

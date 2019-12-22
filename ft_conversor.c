@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:04:33 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/20 17:31:50 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/22 15:26:11 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,18 +42,31 @@ int			noffiles(t_mapinfo *s)
 
 static void	getdirandpos(t_mapinfo *s, int dir, int x, int y)
 {
-	s->posX = x;
-	s->posY = y;
-	s->dirX = -1;
-	s->dirY = 0;
-	if (dir == DIRN)
-		s->initialdir = 0;
+	s->posx = x;
+	s->posy = y;
+	s->dirx = -1;
+	s->diry = 0;
+	s->initialdir = 0;
 	if (dir == DIRS)
-		s->initialdir = 12;
+		s->initialdir = 21;
 	if (dir == DIRW)
-		s->initialdir = 6;
+		s->initialdir = 10;
 	if (dir == DIRE)
-		s->initialdir = 19;
+	{
+		s->initialdir = 32;
+	}
+}
+
+void		maptoarrayaux(t_mapinfo *s, int i, int n, int y)
+{
+	s->mapn[i][y] = s->map[n] - 48;
+	if (s->mapn[i][y] == 2)
+		s->mapn[i][y] = 2;
+	if (s->mapn[i][y] > 2)
+	{
+		getdirandpos(s, s->mapn[i][y], i, y);
+		s->mapn[i][y] = 0;
+	}
 }
 
 void		maptoarray(t_mapinfo *s)
@@ -64,25 +77,17 @@ void		maptoarray(t_mapinfo *s)
 
 	i = 0;
 	n = 0;
-	if (!(s->mapn = malloc(sizeof(char *) * (noflines(s) + 1))))
+	if (!(s->mapn = malloc(sizeof(int *) * (noflines(s) + 1))))
 		return ;
 	while (i < noflines(s))
 	{
-		if (!(s->mapn[i] = malloc(sizeof(char) * (noffiles(s) + 1))))
-			return ;
 		y = 0;
+		if (!(s->mapn[i] = malloc(sizeof(int) * (noffiles(s) + 1))))
+			return ;
 		while (y < noffiles(s))
 		{
-			s->mapn[i][y] = s->map[n] - 48;
+			maptoarrayaux(s, i, n, y++);
 			n += 2;
-			if (s->mapn[i][y] == 2)
-				s->mapn[i][y] = 2;
-			if (s->mapn[i][y] > 2)
-			{
-				getdirandpos(s, s->mapn[i][y], i, y);
-				s->mapn[i][y] = 0;
-			}
-			y++;
 		}
 		i++;
 	}

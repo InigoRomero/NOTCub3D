@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 20:51:50 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/13 15:44:26 by iromero-         ###   ########.fr       */
+/*   Updated: 2019/12/22 16:42:54 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,14 +32,14 @@ static	void	getres(char *temp, t_mapinfo *s)
 	s->y = ft_atoi(ft_substr(temp, aux, i));
 }
 
-static	char	*getstr(char *temp, t_mapinfo *s)
+static	char	*getstr(char *temp)
 {
 	while (*temp != '.')
 		temp++;
 	return (ft_strdup(temp));
 }
 
-static	char	*getcolor(char *temp, t_mapinfo *s)
+static	char	*getcolor(char *temp)
 {
 	while (!(ft_isdigit(*temp)))
 		temp++;
@@ -55,19 +55,19 @@ void			getinfo(t_mapinfo *s, char *buffer)
 	if ((temp = ft_strchr(buffer, 'R')))
 		getres(buffer, s);
 	else if (ft_strnstr(buffer, "NO", len))
-		s->no = ft_strdup(getstr(buffer, s));
+		s->no = ft_strdup(getstr(buffer));
 	else if (ft_strnstr(buffer, "SO", len))
-		s->so = ft_strdup(getstr(buffer, s));
+		s->so = ft_strdup(getstr(buffer));
 	else if (ft_strnstr(buffer, "WE", len))
-		s->we = ft_strdup(getstr(buffer, s));
+		s->we = ft_strdup(getstr(buffer));
 	else if (ft_strnstr(buffer, "EA", len))
-		s->ea = ft_strdup(getstr(buffer, s));
+		s->ea = ft_strdup(getstr(buffer));
 	else if (ft_strnstr(buffer, "S .", len))
-		s->s = ft_strdup(getstr(buffer, s));
+		s->s = ft_strdup(getstr(buffer));
 	else if ((temp = ft_strchr(buffer, 'F')))
-		s->f = ft_strdup(getcolor(buffer, s));
+		s->f = ft_strdup(getcolor(buffer));
 	else if ((temp = ft_strchr(buffer, 'C')))
-		s->c = ft_strdup(getcolor(buffer, s));
+		s->c = ft_strdup(getcolor(buffer));
 	else if ((temp = ft_strchr(buffer, '1')))
 		s->map = ft_strjoin(s->map, ft_strjoin(buffer, "\n"));
 }
