@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 19:46:46 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/22 17:24:32 by iromero-         ###   ########.fr       */
+/*   Updated: 2020/01/03 11:20:26 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,9 @@ int			checkrules(t_mapinfo *s)
 	if (!(ft_strchr(s->map, 'N') || ft_strchr(s->map, 'S') ||
 		ft_strchr(s->map, 'W') || ft_strchr(s->map, 'E')))
 		return (-1);
+	if (s->x > MAXX)
+		s->x = MAXX;
+	if (s->y > MAXY)
+		s->y = MAXY;
 	return (1);
 }

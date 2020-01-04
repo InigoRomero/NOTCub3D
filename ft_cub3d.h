@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/22 17:16:01 by iromero-         ###   ########.fr       */
+/*   Updated: 2020/01/04 18:48:18 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,13 +59,15 @@
 # define KEY_RIGHT 124
 # define KEY_DOWN 125
 # define KEY_UP 126
-# define BUFFER_SIZE 1
+# define BUFFER_SIZE 1000
 # define KEY_ESQ 53
 # define KEY_SHIFT 257
 # define DIRN 30
 # define DIRW 39
 # define DIRE 21
 # define DIRS 35
+# define MAXX 2560
+# define MAXY 1400
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/stat.h>
@@ -85,16 +87,16 @@ typedef struct		s_vars
 	char			*img_ptr2;
 	char			*img_psr;
 	char			*img_psrda;
-	char			*wlone[9];
-	char			*wdata[9];
+	char			*wlone[8];
+	char			*wdata[8];
 	int				bpp;
 	int				sl;
 	int				endian;
-	int				wbpp[9];
-	int				wsl[9];
-	int				wendian[9];
-	int				h[9];
-	int				w[9];
+	int				wbpp[8];
+	int				wsl[8];
+	int				wendian[8];
+	int				h[8];
+	int				w[8];
 	char			*map;
 	int				x;
 	int				y;
@@ -105,7 +107,7 @@ typedef struct		s_vars
 	char			*s;
 	char			*f;
 	char			*c;
-	int				**mapn;
+	char			**mapn;
 	int				width;
 	int				height;
 	double			posx;
@@ -170,9 +172,10 @@ typedef struct		s_vars
 	int				j;
 	int				cox;
 	double			hp;
+	int				screenshot;
 }					t_mapinfo;
 
-void				getinfo(t_mapinfo *s, char *buffer);
+void				getinfo(t_mapinfo *s, char **buffer);
 void				maptoarray(t_mapinfo *s);
 int					noflines(t_mapinfo *s);
 int					noffiles(t_mapinfo *s);
@@ -191,4 +194,5 @@ int					nopulsed(int key, t_mapinfo *s);
 int					pulsed(int eky, t_mapinfo *s);
 void				fp(t_mapinfo *s);
 int					checkname(char **argv);
+void				dofreesray(t_mapinfo *s);
 #endif

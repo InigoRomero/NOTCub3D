@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 18:38:25 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/22 18:29:41 by iromero-         ###   ########.fr       */
+/*   Updated: 2020/01/03 13:18:07 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,6 @@ void	loadfp(t_mapinfo *s)
 		"src/Floor.xpm", &s->w[6], &s->h[6]);
 	s->wdata[6] = mlx_get_data_addr(s->wlone[6],
 		&s->wbpp[6], &s->wsl[6], &s->wendian[6]);
-	s->wlone[7] = mlx_xpm_file_to_image(s->mlx_ptr,
-		"src/wood.xpm", &s->w[7], &s->h[7]);
-	s->wdata[7] = mlx_get_data_addr(s->wlone[7],
-		&s->wbpp[7], &s->wsl[7], &s->wendian[7]);
 }
 
 void	fp(t_mapinfo *s)
@@ -47,6 +43,7 @@ void	fp(t_mapinfo *s)
 	s->wdata[3] = mlx_get_data_addr(s->wlone[3],
 		&s->wbpp[3], &s->wsl[3], &s->wendian[3]);
 	loadfp(s);
+	dofreesray(s);
 }
 
 int		pulsed(int key, t_mapinfo *s)
@@ -111,6 +108,8 @@ int		main(int argc, char **argv)
 			write(1, "bad map broh", 13);
 			return (-1);
 		}
+		printf("\nmapa string: %p\n mapa num %p\n", s->map, s->mapn[0]);
+		free(s->map);
 		openall(s);
 		return (0);
 	}

@@ -13,7 +13,7 @@ ft_lstdelone_bonus.c    ft_lstiter_bonus.c  ft_lstlast_bonus.c  \
 ft_lstmap_bonus.c   ft_lstnew_bonus.c   ft_lstsize_bonus.c
 SRCGNL = get_next_line.c gnl/get_next_line_utils.c
 SRCCUB = ft_conversor.c ft_cub3d.c ft_draw.c ft_getinfo.c ft_init.c ft_keys.c \
-ft_raycasting.c ft_rules.c ft_toimg_andimg.c
+ft_raycasting.c ft_rules.c ft_toimg_andimg.c ft_frees.c
 SRCMINI= mlx_shaders.c mlx_new_window.m mlx_init_loop.m mlx_new_image.m mlx_xpm.c mlx_int_str_to_wordtab.c
 SRCMINI+= mlx_png.c mlx_mouse.m
 CC = gcc -Wall -Wextra -Werror

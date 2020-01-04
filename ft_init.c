@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 14:29:36 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/22 17:27:03 by iromero-         ###   ########.fr       */
+/*   Updated: 2020/01/04 19:17:20 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,13 @@ void	readmap(t_mapinfo *s, char **argv, int argc)
 
 	s->map = ft_strdup("");
 	fp = open(argv[argc - 1], O_RDONLY);
-	while ((get_next_line(fp, &buffer)) != 0)
-		getinfo(s, buffer);
-	getinfo(s, buffer);
+	while ((get_next_line(fp, &buffer)) > 0)
+	{
+		getinfo(s, &buffer);
+		free(buffer);
+	}
+	getinfo(s, &buffer);
+	free(buffer);
 	maptoarray(s);
 	close(fp);
 }
@@ -33,7 +37,7 @@ void	startvars(t_mapinfo *s)
 	s->planey = 0.66;
 	s->obj = 0;
 	s->movespeed = 0.12;
-	s->rotspeed = 0.15;
+	s->rotspeed = 0.08;
 	s->count = 0;
 	s->mlx_ptr = NULL;
 	s->win_ptr = NULL;

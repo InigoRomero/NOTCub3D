@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 20:51:50 by iromero-          #+#    #+#             */
-/*   Updated: 2019/12/22 16:42:54 by iromero-         ###   ########.fr       */
+/*   Updated: 2020/01/04 19:15:26 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,38 +36,48 @@ static	char	*getstr(char *temp)
 {
 	while (*temp != '.')
 		temp++;
-	return (ft_strdup(temp));
+	return (temp);
 }
 
 static	char	*getcolor(char *temp)
 {
 	while (!(ft_isdigit(*temp)))
 		temp++;
-	return (ft_strdup(temp));
+	return (temp);
 }
 
-void			getinfo(t_mapinfo *s, char *buffer)
+void			takeline(t_mapinfo *s, char **temp, char *buffer)
+{
+	char *temp2;
+
+	*temp = ft_strjoin(buffer, "\n");
+	temp2 = s->map;
+	s->map = ft_strjoin(s->map, *temp);
+	free(temp2);
+}
+
+void			getinfo(t_mapinfo *s, char **buffer)
 {
 	char	*temp;
 	int		len;
 
-	len = ft_strlen(buffer);
-	if ((temp = ft_strchr(buffer, 'R')))
-		getres(buffer, s);
-	else if (ft_strnstr(buffer, "NO", len))
-		s->no = ft_strdup(getstr(buffer));
-	else if (ft_strnstr(buffer, "SO", len))
-		s->so = ft_strdup(getstr(buffer));
-	else if (ft_strnstr(buffer, "WE", len))
-		s->we = ft_strdup(getstr(buffer));
-	else if (ft_strnstr(buffer, "EA", len))
-		s->ea = ft_strdup(getstr(buffer));
-	else if (ft_strnstr(buffer, "S .", len))
-		s->s = ft_strdup(getstr(buffer));
-	else if ((temp = ft_strchr(buffer, 'F')))
-		s->f = ft_strdup(getcolor(buffer));
-	else if ((temp = ft_strchr(buffer, 'C')))
-		s->c = ft_strdup(getcolor(buffer));
-	else if ((temp = ft_strchr(buffer, '1')))
-		s->map = ft_strjoin(s->map, ft_strjoin(buffer, "\n"));
+	len = ft_strlen(*buffer);
+	if ((temp = ft_strchr(*buffer, 'R')))
+		getres(*buffer, s);
+	else if (ft_strnstr(*buffer, "NO", len))
+		s->no = ft_strdup(getstr(*buffer));
+	else if (ft_strnstr(*buffer, "SO", len))
+		s->so = ft_strdup(getstr(*buffer));
+	else if (ft_strnstr(*buffer, "WE", len))
+		s->we = ft_strdup(getstr(*buffer));
+	else if (ft_strnstr(*buffer, "EA", len))
+		s->ea = ft_strdup(getstr(*buffer));
+	else if (ft_strnstr(*buffer, "S .", len))
+		s->s = ft_strdup(getstr(*buffer));
+	else if ((temp = ft_strchr(*buffer, 'F')))
+		s->f = ft_strdup(getcolor(*buffer));
+	else if ((temp = ft_strchr(*buffer, 'C')))
+		s->c = ft_strdup(getcolor(*buffer));
+	else if ((temp = ft_strchr(*buffer, '1')))
+		takeline(s, &temp, *buffer);
 }
