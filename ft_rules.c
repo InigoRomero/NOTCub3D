@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 19:46:46 by iromero-          #+#    #+#             */
-/*   Updated: 2020/01/03 11:20:26 by iromero-         ###   ########.fr       */
+/*   Updated: 2020/01/06 11:59:37 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,8 @@ int			checkname(char **argv)
 {
 	char *aux;
 
-	aux = ft_strdup(argv[1]);
-	if (!(aux = ft_strchr(aux, '.')))
+	if (!(aux = ft_strchr(argv[1], '.')))
 		return (-1);
-	*aux = 0;
 	if (*(++aux) != 'c')
 		return (-1);
 	if (*(++aux) != 'u')

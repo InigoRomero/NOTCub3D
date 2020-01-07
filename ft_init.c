@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 14:29:36 by iromero-          #+#    #+#             */
-/*   Updated: 2020/01/04 19:17:20 by iromero-         ###   ########.fr       */
+/*   Updated: 2020/01/06 18:13:09 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,23 @@ void	readmap(t_mapinfo *s, char **argv, int argc)
 	char	*buffer;
 
 	s->map = ft_strdup("");
-	fp = open(argv[argc - 1], O_RDONLY);
+	fp = open(argv[1], O_RDONLY);
 	while ((get_next_line(fp, &buffer)) > 0)
 	{
-		getinfo(s, &buffer);
+		getinfo(s, buffer);
 		free(buffer);
 	}
-	getinfo(s, &buffer);
+	getinfo(s, buffer);
 	free(buffer);
 	maptoarray(s);
 	close(fp);
+	if (argc == 3)
+		s->screenshot = 1;
+	if (argc == 3 && ft_strncmp(argv[2], "--save", 6))
+	{
+		write(1, "mal argumento", 13);
+		exit(1);
+	}
 }
 
 void	startvars(t_mapinfo *s)

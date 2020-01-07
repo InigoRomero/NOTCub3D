@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 18:38:25 by iromero-          #+#    #+#             */
-/*   Updated: 2020/01/03 13:18:07 by iromero-         ###   ########.fr       */
+/*   Updated: 2020/01/06 12:04:41 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int		main(int argc, char **argv)
 {
 	t_mapinfo *s;
 
-	if (argc == 2)
+	if (argc == 2 || argc == 3)
 	{
 		if (!(s = malloc(sizeof(*s))))
 			return (-1);
@@ -108,7 +108,6 @@ int		main(int argc, char **argv)
 			write(1, "bad map broh", 13);
 			return (-1);
 		}
-		printf("\nmapa string: %p\n mapa num %p\n", s->map, s->mapn[0]);
 		free(s->map);
 		openall(s);
 		return (0);

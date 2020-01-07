@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 11:25:22 by iromero-          #+#    #+#             */
-/*   Updated: 2020/01/04 19:02:55 by iromero-         ###   ########.fr       */
+/*   Updated: 2020/01/07 09:45:35 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,6 @@ int		deal_key(t_mapinfo *s)
 	l_and_r(s);
 	if (s->presedesq == 1)
 	{
-		free(s);
 		system("leaks CUB3D");
 		exit(1);
 	}

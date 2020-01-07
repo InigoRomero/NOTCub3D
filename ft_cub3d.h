@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2020/01/04 18:48:18 by iromero-         ###   ########.fr       */
+/*   Updated: 2020/01/06 18:23:08 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@
 # define KEY_RIGHT 124
 # define KEY_DOWN 125
 # define KEY_UP 126
-# define BUFFER_SIZE 1000
+# define BUFFER_SIZE 1
 # define KEY_ESQ 53
 # define KEY_SHIFT 257
 # define DIRN 30
@@ -107,7 +107,7 @@ typedef struct		s_vars
 	char			*s;
 	char			*f;
 	char			*c;
-	char			**mapn;
+	int				**mapn;
 	int				width;
 	int				height;
 	double			posx;
@@ -173,9 +173,11 @@ typedef struct		s_vars
 	int				cox;
 	double			hp;
 	int				screenshot;
+	int				objbool;
+	int				objposxtwo;
 }					t_mapinfo;
 
-void				getinfo(t_mapinfo *s, char **buffer);
+void				getinfo(t_mapinfo *s, char *buffer);
 void				maptoarray(t_mapinfo *s);
 int					noflines(t_mapinfo *s);
 int					noffiles(t_mapinfo *s);
@@ -195,4 +197,8 @@ int					pulsed(int eky, t_mapinfo *s);
 void				fp(t_mapinfo *s);
 int					checkname(char **argv);
 void				dofreesray(t_mapinfo *s);
+int					write_bmp_header(int fd, int filesize, t_mapinfo *s);
+int					write_bmp_data(int file, t_mapinfo *s, int pad);
+void				set_int_in_char(unsigned char *start, int value);
+int					get_color(t_mapinfo *s, int x, int y);
 #endif
