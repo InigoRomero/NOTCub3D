@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 19:38:44 by iromero-          #+#    #+#             */
-/*   Updated: 2020/01/06 19:17:35 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 17:00:44 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,6 @@ void	printhp(t_mapinfo *s)
 	}
 }
 
-void	auxlinetwo(t_mapinfo *s)
-{
-	while (s->j < s->obend && s->j - s->obstart <
-		s->h[7] && s->count < s->w[7])
-	{
-		if (s->wdata[7][s->oby % s->h[7] * s->wsl[7] +
-		s->obx % s->w[7] * s->wbpp[7] / 8] != 0)
-		{
-			ft_memcpy(s->img_ptr + (s->wbpp[7] / 8) *
-				s->x * s->j + s->cox * (s->wbpp[7] / 8),
-			&s->wdata[7][s->oby % s->h[7] * s->wsl[7] +
-			s->obx % s->w[7] * s->wbpp[7] / 8], sizeof(int));
-		}
-		s->oby++;
-		s->j++;
-	}
-	s->obx++;
-}
-
 void	auxline(t_mapinfo *s)
 {
 	if (s->side == 1 && s->raydiry < 0)
@@ -77,13 +58,6 @@ void	auxline(t_mapinfo *s)
 		ft_memcpy(s->img_ptr + 4 * s->x * s->j +
 			s->cox * 4, &s->color2, sizeof(int));
 		s->j++;
-	}
-	if (s->obj > 0 && s->cox >= s->objposx)
-	{
-		s->id = 7;
-		s->count++;
-		s->j = s->obstart;
-		auxlinetwo(s);
 	}
 	printhp(s);
 }

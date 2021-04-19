@@ -1,4 +1,4 @@
-R 2000 1000
+R 1280 720
 NO ./src/stone.xpm
 SO ./src/wood.xpm
 WE ./src/mossy.xpm

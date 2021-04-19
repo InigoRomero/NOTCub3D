@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2020/01/06 18:23:08 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 17:01:01 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ typedef struct		s_vars
 	char			*img_psrda;
 	char			*wlone[8];
 	char			*wdata[8];
+	int				*data_spr;
 	int				bpp;
 	int				sl;
 	int				endian;
@@ -128,7 +129,6 @@ typedef struct		s_vars
 	double			deltadistx;
 	double			deltadisty;
 	double			perpwalldist;
-	double			objdist;
 	int				stepx;
 	int				stepy;
 	int				hit;
@@ -138,9 +138,6 @@ typedef struct		s_vars
 	int				drawend;
 	int				obstart;
 	int				obend;
-	int				obj;
-	int				objposx;
-	int				objposy;
 	int				color;
 	double			movespeed;
 	double			frametime;
@@ -173,8 +170,6 @@ typedef struct		s_vars
 	int				cox;
 	double			hp;
 	int				screenshot;
-	int				objbool;
-	int				objposxtwo;
 }					t_mapinfo;
 
 void				getinfo(t_mapinfo *s, char *buffer);

@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 14:29:36 by iromero-          #+#    #+#             */
-/*   Updated: 2020/01/06 18:13:09 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 17:04:34 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	startvars(t_mapinfo *s)
 	s->id = 0;
 	s->planex = 0;
 	s->planey = 0.66;
-	s->obj = 0;
 	s->movespeed = 0.12;
 	s->rotspeed = 0.08;
 	s->count = 0;
