@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 11:25:22 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 17:06:46 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 20:11:50 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,20 +16,16 @@ void	w_and_s(t_s *s)
 {
 	if (s->presedw == 1)
 	{
-		if ((s->mapn[(int)(s->posx + s->dirx *
-			(s->movespeed + 0.6))][(int)s->posy]) != 1)
+		if ((s->mapn[(int)(s->posx + s->dirx *(s->movespeed + 0.6))][(int)s->posy]) != 1 && (s->mapn[(int)(s->posx + s->dirx *(s->movespeed + 0.6))][(int)s->posy]) != 3)
 			s->posx += s->dirx * s->movespeed;
-		if ((s->mapn[(int)s->posx][(int)(s->posy + s->diry *
-			(s->movespeed + 0.6))]) != 1)
+		if ((s->mapn[(int)s->posx][(int)(s->posy + s->diry * (s->movespeed + 0.6))]) != 1 && (s->mapn[(int)s->posx][(int)(s->posy + s->diry * (s->movespeed + 0.6))]) != 3)
 			s->posy += s->diry * s->movespeed;
 	}
 	if (s->preseds == 1)
 	{
-		if ((s->mapn[(int)(s->posx - s->dirx *
-			(s->movespeed + 0.6))][(int)s->posy]) != 1)
+		if ((s->mapn[(int)(s->posx - s->dirx *(s->movespeed + 0.6))][(int)s->posy]) != 1 && (s->mapn[(int)(s->posx - s->dirx * (s->movespeed + 0.6))][(int)s->posy]) != 3)
 			s->posx -= s->dirx * s->movespeed;
-		if ((s->mapn[(int)s->posx][(int)(s->posy -
-			s->diry * (s->movespeed + 0.6))]) != 1)
+		if ((s->mapn[(int)s->posx][(int)(s->posy -s->diry * (s->movespeed + 0.6))]) != 1 && (s->mapn[(int)s->posx][(int)(s->posy -s->diry * (s->movespeed + 0.6))]) != 3)
 			s->posy -= s->diry * s->movespeed;
 	}
 }
@@ -38,20 +34,16 @@ void	a_and_d(t_s *s)
 {
 	if (s->preseda == 1)
 	{
-		if ((s->mapn[(int)(s->posx - s->diry *
-			(s->movespeed + 0.6))][(int)s->posy]) != 1)
+		if ((s->mapn[(int)(s->posx - s->diry * (s->movespeed + 0.6))][(int)s->posy]) != 1 && (s->mapn[(int)(s->posx - s->diry * (s->movespeed + 0.6))][(int)s->posy]) != 3)
 			s->posx -= s->diry * s->movespeed;
-		if ((s->mapn[(int)s->posx][(int)(s->posy +
-			s->dirx * (s->movespeed + 0.6))]) != 1)
+		if ((s->mapn[(int)s->posx][(int)(s->posy + s->dirx * (s->movespeed + 0.6))]) != 1 && (s->mapn[(int)s->posx][(int)(s->posy + s->dirx * (s->movespeed + 0.6))]) != 3)
 			s->posy += s->dirx * s->movespeed;
 	}
 	if (s->presedd == 1)
 	{
-		if ((s->mapn[(int)(s->posx + s->diry *
-			(s->movespeed + 0.6))][(int)s->posy]) != 1)
+		if ((s->mapn[(int)(s->posx + s->diry * (s->movespeed + 0.6))][(int)s->posy]) != 1 && (s->mapn[(int)(s->posx + s->diry * (s->movespeed + 0.6))][(int)s->posy]) != 3)
 			s->posx += s->diry * s->movespeed;
-		if ((s->mapn[(int)s->posx][(int)(s->posy -
-			s->dirx * (s->movespeed + 0.6))]) != 1)
+		if ((s->mapn[(int)s->posx][(int)(s->posy -s->dirx * (s->movespeed + 0.6))]) != 1 && (s->mapn[(int)s->posx][(int)(s->posy -s->dirx * (s->movespeed + 0.6))]) != 3)
 			s->posy -= s->dirx * s->movespeed;
 	}
 }
