@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 18:38:25 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 18:47:58 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 19:35:28 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,18 +17,18 @@ void	loadfp(t_s *s)
 	s->wlone[4] = mlx_xpm_file_to_image(s->mlx_ptr, s->we, &s->w[4], &s->h[4]);
 	s->wdata[4] = mlx_get_data_addr(s->wlone[4],
 		&s->wbpp[4], &s->wsl[4], &s->wendian[4]);
-	s->wlone[5] = mlx_xpm_file_to_image(s->mlx_ptr,
-		"src/fp2.xpm", &s->w[5], &s->h[5]);
-	s->wdata[5] = mlx_get_data_addr(s->wlone[5],
-		&s->wbpp[5], &s->wsl[5], &s->wendian[5]);
 	s->wlone[6] = mlx_xpm_file_to_image(s->mlx_ptr,
 		"src/Floor.xpm", &s->w[6], &s->h[6]);
 	s->wdata[6] = mlx_get_data_addr(s->wlone[6],
 		&s->wbpp[6], &s->wsl[6], &s->wendian[6]);
 	s->wlone[7] = mlx_xpm_file_to_image(s->mlx_ptr,
 		"src/barrel.xpm", &s->w[7], &s->h[7]);
-	s->data_spr = (int *) mlx_get_data_addr(s->wlone[7],
+	s->data_spr[0] = (int *) mlx_get_data_addr(s->wlone[7],
 		&s->wbpp[7], &s->wsl[7], &s->wendian[7]);
+	s->wlone[8] = mlx_xpm_file_to_image(s->mlx_ptr,
+		"src/pillar.xpm", &s->w[8], &s->h[8]);
+	s->data_spr[1] = (int *) mlx_get_data_addr(s->wlone[8],
+		&s->wbpp[8], &s->wsl[8], &s->wendian[8]);
 }
 
 void	fp(t_s *s)

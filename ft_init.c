@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 14:29:36 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 17:56:44 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 18:52:36 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,6 @@ void	openall(t_s *s)
 	s->mlx_ptr = mlx_init();
 	s->win_ptr = mlx_new_window(s->mlx_ptr, s->x, s->y, "mlx 42");
 	fp(s);
-	s->fpposx = s->x / 2 - s->w[5] / 2;
-	s->fpposy = s->y - s->h[5];
 	raycasting(s);
 	mlx_hook(s->win_ptr, 2, 0, nopulsed, s);
 	mlx_hook(s->win_ptr, 3, 0, pulsed, s);

@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 19:46:46 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 17:06:46 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 19:35:52 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static int	checkcontent(t_s *s)
 	{
 		if (s->map[i] != '1' && s->map[i] != '0' && s->map[i] != '2'
 			&& s->map[i] != 'N' && s->map[i] != 'S' &&
-			s->map[i] != 'O' && s->map[i] != 'E' && s->map[i] != 'W')
+			s->map[i] != 'O' && s->map[i] != 'E' && s->map[i] != 'W' && s->map[i] != '3' && s->map[i] != '4')
 			return (-1);
 		i += 2;
 	}

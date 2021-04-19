@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 13:15:30 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 18:04:57 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 18:54:36 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,8 +57,6 @@ void	to_img(t_s *s)
 
 	s->count = 0;
 	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img, 0, 0);
-	//mlx_put_image_to_window(s->mlx_ptr, s->win_ptr,
-	//	s->wlone[5], s->fpposx, s->fpposy);
 	free(s->s_buff);
 	if (s->screenshot == 1)
 	{
