@@ -6,13 +6,13 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/01/03 19:38:44 by romero-           #+#    #+#             */
-/*   Updated: 2021/04/19 17:04:37 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 17:56:44 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-int		write_bmp_header(int fd, int filesize, t_mapinfo *s)
+int		write_bmp_header(int fd, int filesize, t_s *s)
 {
 	int				i;
 	unsigned char	bmpfileheader[54];
@@ -32,7 +32,7 @@ int		write_bmp_header(int fd, int filesize, t_mapinfo *s)
 	return (!(write(fd, bmpfileheader, 54) < 0));
 }
 
-int		write_bmp_data(int file, t_mapinfo *s, int pad)
+int		write_bmp_data(int file, t_s *s, int pad)
 {
 	const unsigned char	zero[3] = {0, 0, 0};
 	int					i;
@@ -57,7 +57,7 @@ int		write_bmp_data(int file, t_mapinfo *s, int pad)
 	return (1);
 }
 
-void	dofreesray(t_mapinfo *s)
+void	dofreesray(t_s *s)
 {
 	free(s->we);
 	free(s->so);

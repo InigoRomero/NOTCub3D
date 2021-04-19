@@ -6,13 +6,13 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/07 20:51:50 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 17:04:34 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 17:56:44 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-static	void	getres(char *temp, t_mapinfo *s)
+static	void	getres(char *temp, t_s *s)
 {
 	int		i;
 	int		aux;
@@ -51,7 +51,7 @@ static	char	*getcolor(char *temp)
 	return (temp);
 }
 
-void			takeline(t_mapinfo *s, char *temp, char *buffer)
+void			takeline(t_s *s, char *temp, char *buffer)
 {
 	char *temp2;
 
@@ -62,7 +62,7 @@ void			takeline(t_mapinfo *s, char *temp, char *buffer)
 	free(temp);
 }
 
-void			getinfo(t_mapinfo *s, char *buffer)
+void			getinfo(t_s *s, char *buffer)
 {
 	char	*temp;
 	int		len;

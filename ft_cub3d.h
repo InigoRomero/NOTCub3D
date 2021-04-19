@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/06 18:15:27 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 17:01:01 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 17:45:58 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@
 # include "minilibx/mlx.h"
 # include "libft/libft.h"
 # include "gnl/get_next_line.h"
+# define BLACK 0x00000000
 
 typedef struct		s_vars
 {
@@ -170,30 +171,57 @@ typedef struct		s_vars
 	int				cox;
 	double			hp;
 	int				screenshot;
-}					t_mapinfo;
+	int				max_row;
+	int				max_col;
+	//SPRITES
+	double		sprite_x;
+	double		sprite_y;
+	double		*sprite_pos_x;
+	double		*sprite_pos_y;
+	int			drawstart_x;
+	int			drawend_x;
+	int			drawstart_y;
+	int			drawend_y;
+	int			sprite_w;
+	int			sprite_h;
+	int			sprite_screen_x;
+	int			tex_width;
+	int			tex_height;
+	double		transform_x;
+	double		transform_y;
+	float		*s_buff;
+	double		invdet;
+	int			count_sprite;
+	double		s_distance;
+	int			stripe;
+	int			tex_x;
+	int			tex_y;
+}					t_s;
 
-void				getinfo(t_mapinfo *s, char *buffer);
-void				maptoarray(t_mapinfo *s);
-int					noflines(t_mapinfo *s);
-int					noffiles(t_mapinfo *s);
-int					checkrules(t_mapinfo *s);
-int					deal_key(t_mapinfo *s);
-void				ft_verline(t_mapinfo *s);
-void				raycasting(t_mapinfo *s);
-void				ft_gun(t_mapinfo *s);
-void				put_pxl_to_img(t_mapinfo *s, int x, int y);
-void				calcularobj(t_mapinfo *s);
-void				to_img(t_mapinfo *s);
-void				openall(t_mapinfo *s);
-void				startvars(t_mapinfo *s);
-void				readmap(t_mapinfo *s, char **argv, int argc);
-int					nopulsed(int key, t_mapinfo *s);
-int					pulsed(int eky, t_mapinfo *s);
-void				fp(t_mapinfo *s);
+void				getinfo(t_s *s, char *buffer);
+void				maptoarray(t_s *s);
+int					noflines(t_s *s);
+int					noffiles(t_s *s);
+int					checkrules(t_s *s);
+int					deal_key(t_s *s);
+void				ft_verline(t_s *s);
+void				raycasting(t_s *s);
+void				ft_gun(t_s *s);
+void				put_pxl_to_img(t_s *s, int x, int y);
+void				calcularobj(t_s *s);
+void				to_img(t_s *s);
+void				openall(t_s *s);
+void				startvars(t_s *s);
+void				readmap(t_s *s, char **argv, int argc);
+int					nopulsed(int key, t_s *s);
+int					pulsed(int eky, t_s *s);
+void				fp(t_s *s);
 int					checkname(char **argv);
-void				dofreesray(t_mapinfo *s);
-int					write_bmp_header(int fd, int filesize, t_mapinfo *s);
-int					write_bmp_data(int file, t_mapinfo *s, int pad);
+void				dofreesray(t_s *s);
+int					write_bmp_header(int fd, int filesize, t_s *s);
+int					write_bmp_data(int file, t_s *s, int pad);
 void				set_int_in_char(unsigned char *start, int value);
-int					get_color(t_mapinfo *s, int x, int y);
+int					get_color(t_s *s, int x, int y);
+void				get_sprite(t_s *s);
+void				sprites(t_s *s);
 #endif

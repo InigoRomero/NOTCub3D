@@ -6,13 +6,13 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:17:51 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 17:01:35 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 18:05:25 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-void	raycaauxfour(t_mapinfo *s)
+void	raycaauxfour(t_s *s)
 {
 	if (s->side == 0)
 		s->perpwalldist = (s->mapx - s->posx +
@@ -28,16 +28,18 @@ void	raycaauxfour(t_mapinfo *s)
 	if (s->drawend >= s->y)
 		s->drawend = s->y - 1;
 	ft_verline(s);
+	if (s->count_sprite > 0)
+		s->s_buff[s->cox] = s->perpwalldist;
 	s->cox++;
 }
 
-void	raycaauxthre(t_mapinfo *s)
+void	raycaauxthre(t_s *s)
 {
 	if (s->mapn[s->mapx][s->mapy] == 1)
 		s->hit = 1;
 }
 
-void	raycaauxtwo(t_mapinfo *s)
+void	raycaauxtwo(t_s *s)
 {
 	if (s->mapn[(int)s->posx][(int)s->posy] == 2)
 	{
@@ -64,7 +66,7 @@ void	raycaauxtwo(t_mapinfo *s)
 	raycaauxfour(s);
 }
 
-void	raycaaux(t_mapinfo *s)
+void	raycaaux(t_s *s)
 {
 	if (s->raydirx < 0)
 	{
@@ -89,12 +91,13 @@ void	raycaaux(t_mapinfo *s)
 	raycaauxtwo(s);
 }
 
-void	raycasting(t_mapinfo *s)
+void	raycasting(t_s *s)
 {
 	s->cox = 0;
 	s->obx = 0;
 	s->img = mlx_new_image(s->mlx_ptr, s->x, s->y);
 	s->img_ptr = mlx_get_data_addr(s->img, &s->bpp, &s->sl, &s->endian);
+	s->s_buff = malloc(sizeof(int) * s->x);
 	while (s->cox < s->x)
 	{
 		s->camerax = 2 * s->cox / (double)s->x - 1;
@@ -107,5 +110,7 @@ void	raycasting(t_mapinfo *s)
 		s->hit = 0;
 		raycaaux(s);
 	}
+	if (s->count_sprite > 0)
+		sprites(s);
 	to_img(s);
 }

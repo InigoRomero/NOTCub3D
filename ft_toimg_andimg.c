@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 13:15:30 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 17:04:55 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 18:04:57 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	set_int_in_char(unsigned char *start, int value)
 	start[3] = (unsigned char)(value >> 24);
 }
 
-int		get_color(t_mapinfo *s, int x, int y)
+int		get_color(t_s *s, int x, int y)
 {
 	int	rgb;
 	int	color;
@@ -32,7 +32,7 @@ int		get_color(t_mapinfo *s, int x, int y)
 	return (rgb);
 }
 
-int		doscreenshot(t_mapinfo *s)
+int		doscreenshot(t_s *s)
 {
 	int file;
 	int filesize;
@@ -51,14 +51,15 @@ int		doscreenshot(t_mapinfo *s)
 	return (1);
 }
 
-void	to_img(t_mapinfo *s)
+void	to_img(t_s *s)
 {
 	char *n;
 
 	s->count = 0;
 	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->img, 0, 0);
-	mlx_put_image_to_window(s->mlx_ptr, s->win_ptr,
-		s->wlone[5], s->fpposx, s->fpposy);
+	//mlx_put_image_to_window(s->mlx_ptr, s->win_ptr,
+	//	s->wlone[5], s->fpposx, s->fpposy);
+	free(s->s_buff);
 	if (s->screenshot == 1)
 	{
 		doscreenshot(s);

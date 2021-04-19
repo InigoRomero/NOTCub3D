@@ -6,13 +6,13 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 18:38:25 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 17:04:34 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 18:47:58 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-void	loadfp(t_mapinfo *s)
+void	loadfp(t_s *s)
 {
 	s->wlone[4] = mlx_xpm_file_to_image(s->mlx_ptr, s->we, &s->w[4], &s->h[4]);
 	s->wdata[4] = mlx_get_data_addr(s->wlone[4],
@@ -26,12 +26,12 @@ void	loadfp(t_mapinfo *s)
 	s->wdata[6] = mlx_get_data_addr(s->wlone[6],
 		&s->wbpp[6], &s->wsl[6], &s->wendian[6]);
 	s->wlone[7] = mlx_xpm_file_to_image(s->mlx_ptr,
-		"src/obj.xpm", &s->w[7], &s->h[7]);
+		"src/barrel.xpm", &s->w[7], &s->h[7]);
 	s->data_spr = (int *) mlx_get_data_addr(s->wlone[7],
 		&s->wbpp[7], &s->wsl[7], &s->wendian[7]);
 }
 
-void	fp(t_mapinfo *s)
+void	fp(t_s *s)
 {
 	s->wlone[0] = mlx_xpm_file_to_image(s->mlx_ptr, s->ea, &s->w[0], &s->h[0]);
 	s->wdata[0] = mlx_get_data_addr(s->wlone[0],
@@ -50,7 +50,7 @@ void	fp(t_mapinfo *s)
 	dofreesray(s);
 }
 
-int		pulsed(int key, t_mapinfo *s)
+int		pulsed(int key, t_s *s)
 {
 	if (key == KEY_W)
 		s->presedw = 0;
@@ -71,7 +71,7 @@ int		pulsed(int key, t_mapinfo *s)
 	return (0);
 }
 
-int		nopulsed(int key, t_mapinfo *s)
+int		nopulsed(int key, t_s *s)
 {
 	if (key == KEY_W)
 		s->presedw = 1;
@@ -94,7 +94,7 @@ int		nopulsed(int key, t_mapinfo *s)
 
 int		main(int argc, char **argv)
 {
-	t_mapinfo *s;
+	t_s *s;
 
 	if (argc == 2 || argc == 3)
 	{

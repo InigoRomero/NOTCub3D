@@ -6,13 +6,13 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 19:38:44 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 17:00:44 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 17:06:46 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-void	put_pxl_to_img(t_mapinfo *s, int x, int y)
+void	put_pxl_to_img(t_s *s, int x, int y)
 {
 	int n;
 
@@ -28,7 +28,7 @@ void	put_pxl_to_img(t_mapinfo *s, int x, int y)
 	}
 }
 
-void	printhp(t_mapinfo *s)
+void	printhp(t_s *s)
 {
 	int j;
 
@@ -45,7 +45,7 @@ void	printhp(t_mapinfo *s)
 	}
 }
 
-void	auxline(t_mapinfo *s)
+void	auxline(t_s *s)
 {
 	if (s->side == 1 && s->raydiry < 0)
 		s->id = 0;
@@ -62,7 +62,7 @@ void	auxline(t_mapinfo *s)
 	printhp(s);
 }
 
-void	ft_verline(t_mapinfo *s)
+void	ft_verline(t_s *s)
 {
 	s->color2 = 293994;
 	s->j = 0;

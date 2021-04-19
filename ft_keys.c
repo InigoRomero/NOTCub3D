@@ -6,13 +6,13 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/09 11:25:22 by iromero-          #+#    #+#             */
-/*   Updated: 2020/01/07 09:45:35 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 17:06:46 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-void	w_and_s(t_mapinfo *s)
+void	w_and_s(t_s *s)
 {
 	if (s->presedw == 1)
 	{
@@ -34,7 +34,7 @@ void	w_and_s(t_mapinfo *s)
 	}
 }
 
-void	a_and_d(t_mapinfo *s)
+void	a_and_d(t_s *s)
 {
 	if (s->preseda == 1)
 	{
@@ -56,7 +56,7 @@ void	a_and_d(t_mapinfo *s)
 	}
 }
 
-void	l_and_r(t_mapinfo *s)
+void	l_and_r(t_s *s)
 {
 	if (s->presedl == 1)
 	{
@@ -82,7 +82,7 @@ void	l_and_r(t_mapinfo *s)
 	}
 }
 
-int		deal_key(t_mapinfo *s)
+int		deal_key(t_s *s)
 {
 	double p;
 

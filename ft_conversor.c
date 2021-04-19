@@ -6,13 +6,13 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:04:33 by iromero-          #+#    #+#             */
-/*   Updated: 2020/01/05 20:23:02 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 17:42:58 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-int			noflines(t_mapinfo *s)
+int			noflines(t_s *s)
 {
 	int i;
 	int x;
@@ -26,7 +26,7 @@ int			noflines(t_mapinfo *s)
 	return (x);
 }
 
-int			noffiles(t_mapinfo *s)
+int			noffiles(t_s *s)
 {
 	int i;
 	int x;
@@ -40,7 +40,7 @@ int			noffiles(t_mapinfo *s)
 	return (x);
 }
 
-static void	getdirandpos(t_mapinfo *s, int dir, int x, int y)
+static void	getdirandpos(t_s *s, int dir, int x, int y)
 {
 	s->posx = x;
 	s->posy = y;
@@ -57,11 +57,11 @@ static void	getdirandpos(t_mapinfo *s, int dir, int x, int y)
 	}
 }
 
-void		maptoarrayaux(t_mapinfo *s, int i, int n, int y)
+void		maptoarrayaux(t_s *s, int i, int n, int y)
 {
 	s->mapn[i][y] = s->map[n] - 48;
 	if (s->mapn[i][y] == 2)
-		s->mapn[i][y] = 2;
+		s->count_sprite++;
 	if (s->mapn[i][y] > 2)
 	{
 		getdirandpos(s, s->mapn[i][y], i, y);
@@ -69,7 +69,7 @@ void		maptoarrayaux(t_mapinfo *s, int i, int n, int y)
 	}
 }
 
-void		maptoarray(t_mapinfo *s)
+void		maptoarray(t_s *s)
 {
 	int i;
 	int n;

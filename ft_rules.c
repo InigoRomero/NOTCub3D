@@ -6,13 +6,13 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 19:46:46 by iromero-          #+#    #+#             */
-/*   Updated: 2020/01/06 11:59:37 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 17:06:46 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-static int	checkborder(t_mapinfo *s)
+static int	checkborder(t_s *s)
 {
 	int i;
 
@@ -35,7 +35,7 @@ static int	checkborder(t_mapinfo *s)
 	return (1);
 }
 
-static int	checkcontent(t_mapinfo *s)
+static int	checkcontent(t_s *s)
 {
 	int i;
 
@@ -66,7 +66,7 @@ int			checkname(char **argv)
 	return (1);
 }
 
-int			checkrules(t_mapinfo *s)
+int			checkrules(t_s *s)
 {
 	if (checkborder(s) == -1)
 		return (-1);

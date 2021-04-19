@@ -6,17 +6,18 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 14:29:36 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 17:04:34 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 17:56:44 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
 
-void	readmap(t_mapinfo *s, char **argv, int argc)
+void	readmap(t_s *s, char **argv, int argc)
 {
 	int		fp;
 	char	*buffer;
 
+	s->count_sprite = 0;
 	s->map = ft_strdup("");
 	fp = open(argv[1], O_RDONLY);
 	while ((get_next_line(fp, &buffer)) > 0)
@@ -27,6 +28,7 @@ void	readmap(t_mapinfo *s, char **argv, int argc)
 	getinfo(s, buffer);
 	free(buffer);
 	maptoarray(s);
+	get_sprite(s);
 	close(fp);
 	if (argc == 3)
 		s->screenshot = 1;
@@ -37,7 +39,7 @@ void	readmap(t_mapinfo *s, char **argv, int argc)
 	}
 }
 
-void	startvars(t_mapinfo *s)
+void	startvars(t_s *s)
 {
 	s->id = 0;
 	s->planex = 0;
@@ -51,7 +53,7 @@ void	startvars(t_mapinfo *s)
 	s->hp = 200.00;
 }
 
-void	openall(t_mapinfo *s)
+void	openall(t_s *s)
 {
 	int i;
 
