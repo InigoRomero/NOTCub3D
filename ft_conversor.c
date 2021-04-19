@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:04:33 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 19:42:38 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 20:21:16 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,30 @@ static void	getdirandpos(t_s *s, int dir, int x, int y)
 	s->posy = y;
 	s->dirx = -1;
 	s->diry = 0;
-	s->initialdir = 0;
+	s->planex = 0;
+	s->planey = 0.66;
 	if (dir == DIRS)
-		s->initialdir = 21;
-	if (dir == DIRW)
-		s->initialdir = 10;
-	if (dir == DIRE)
 	{
-		s->initialdir = 32;
+		s->dirx = 1;
+		s->diry = 0;
+		s->planex = 0;
+		s->planey = -0.66;
 	}
+	if (dir == DIRW)
+	{
+		s->dirx = 0;
+		s->diry = -1;
+		s->planex = -0.66;
+		s->planey = 0;
+	}
+	 if (dir == DIRE)
+	{
+		s->dirx = 0;
+		s->diry = 1;
+		s->planex = 0.66;
+		s->planey = 0;
+	}
+
 }
 
 void		maptoarrayaux(t_s *s, int i, int n, int y)

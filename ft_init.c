@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 14:29:36 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 18:52:36 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/19 20:20:30 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,6 @@ void	readmap(t_s *s, char **argv, int argc)
 void	startvars(t_s *s)
 {
 	s->id = 0;
-	s->planex = 0;
-	s->planey = 0.66;
 	s->movespeed = 0.12;
 	s->rotspeed = 0.08;
 	s->count = 0;
@@ -65,13 +63,5 @@ void	openall(t_s *s)
 	mlx_hook(s->win_ptr, 2, 0, nopulsed, s);
 	mlx_hook(s->win_ptr, 3, 0, pulsed, s);
 	mlx_loop_hook(s->mlx_ptr, deal_key, s);
-	if (s->initialdir > 0)
-	{
-		s->presedl = 1;
-		while (i++ < s->initialdir)
-			deal_key(s);
-		s->presedl = 0;
-		s->initialdir = 0;
-	}
 	mlx_loop(s->mlx_ptr);
 }
