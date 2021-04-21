@@ -10,7 +10,8 @@ void	get_sprite(t_s *s)
 	i = 0;
 	s->sprite_pos_x = malloc(sizeof(int *) * s->count_sprite);
 	s->sprite_pos_y = malloc(sizeof(int *) * s->count_sprite);
-	if (!s->sprite_pos_x || !s->sprite_pos_y)
+	s->s_distance = malloc(sizeof(int *) * s->count_sprite);
+	if (!s->sprite_pos_x || !s->sprite_pos_y || !s->s_distance)
 		return ;
 	while (++r < noflines(s))
 	{
@@ -26,19 +27,30 @@ void	get_sprite(t_s *s)
 	}
 }
 
-void	swap(t_s *s, int i, int j)
+void	swap(t_s *s, int i)
 {
 	double	tmp;
 
-	s->s_distance = ((s->posx - s->sprite_pos_x[j]) * (s->posx - s->sprite_pos_x[j]) + (s->posy - s->sprite_pos_y[j]) * (s->posy - s->sprite_pos_y[j]));
 	tmp = s->sprite_pos_x[i];
 	s->sprite_pos_x[i] =  s->sprite_pos_x[i + 1];
 	s->sprite_pos_x[i + 1] = tmp;
 	tmp = s->sprite_pos_y[i];
 	s->sprite_pos_y[i] =  s->sprite_pos_y[i + 1];
 	s->sprite_pos_y[i + 1] = tmp;
+	tmp = s->s_distance[i];
+	s->s_distance[i] =  s->s_distance[i + 1];
+	s->s_distance[i + 1] = tmp;
 }
 
+void calculate_distance(t_s *s)
+{
+	int i;
+
+	i = -1;
+	while (++i < s->count_sprite)
+		s->s_distance[i] = ((s->posx - s->sprite_pos_x[i]) * (s->posx - s->sprite_pos_x[i]) + (s->posy - s->sprite_pos_y[i]) * (s->posy - s->sprite_pos_y[i]));
+
+}
 
 void	sorting(t_s *s)
 {
@@ -46,14 +58,15 @@ void	sorting(t_s *s)
 	int j;
 
 	i = 0;
-	while (i < s->count_sprite - 1)
+
+	calculate_distance(s);
+	while (i < s->count_sprite)
 	{
-		s->s_distance = ((s->posx - s->sprite_pos_x[i]) * (s->posx - s->sprite_pos_x[i]) + (s->posy - s->sprite_pos_y[i]) * (s->posy - s->sprite_pos_y[i]));
-		j = i + 1;
-		while (j < s->count_sprite)
+		j = 0;
+		while (j < s->count_sprite - i - 1)
 		{
-			if (((s->posx - s->sprite_pos_x[j]) * (s->posx - s->sprite_pos_x[j]) + (s->posy - s->sprite_pos_y[j]) * (s->posy - s->sprite_pos_y[j])) > s->s_distance)
-				swap(s, i, j);
+			if (s->s_distance[j] < s->s_distance[j + 1])
+				swap(s, j);
 			j++;
 		}
 		i++;
@@ -120,9 +133,11 @@ void	sprites(t_s *s)
             s->stripe = s->drawstart_x;
             while (s->stripe < s->drawend_x)
             {
-                s->tex_x = (int)(((s->h[7] * 4) * (s->stripe - ((-s->sprite_w / 2) + s->sprite_screen_x))) * s->w[4] / s->sprite_w) / (s->h[7] * 4);
                 if (s->transform_y > 0 && s->stripe > 0 && s->stripe < s->x && s->transform_y < s->s_buff[s->stripe])
+				{
+                	s->tex_x = (int)(((s->h[7] * 4) * (s->stripe - ((-s->sprite_w / 2) + s->sprite_screen_x))) * s->w[4] / s->sprite_w) / (s->h[7] * 4);
                     print_sprites(s);
+				}
                 s->stripe++;
             }
         }

@@ -178,6 +178,7 @@ typedef struct		s_vars
 	double		sprite_y;
 	double		*sprite_pos_x;
 	double		*sprite_pos_y;
+	double		*s_distance;
 	int			drawstart_x;
 	int			drawend_x;
 	int			drawstart_y;
@@ -192,7 +193,6 @@ typedef struct		s_vars
 	float		*s_buff;
 	double		invdet;
 	int			count_sprite;
-	double		s_distance;
 	int			stripe;
 	int			tex_x;
 	int			tex_y;

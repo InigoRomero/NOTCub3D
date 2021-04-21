@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 13:15:30 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 18:54:36 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/21 17:17:12 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,5 +66,5 @@ void	to_img(t_s *s)
 	n = ft_itoa(s->score);
 	mlx_string_put(s->mlx_ptr, s->win_ptr, 20, 20, 293994, n);
 	free(n);
-	mlx_destroy_image(s->mlx_ptr, s->img);
+	//mlx_destroy_image(s->mlx_ptr, s->img);
 }

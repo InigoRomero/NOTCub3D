@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:17:51 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 19:33:30 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/21 17:17:36 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,6 @@ void	raycasting(t_s *s)
 {
 	s->cox = 0;
 	s->obx = 0;
-	s->img = mlx_new_image(s->mlx_ptr, s->x, s->y);
-	s->img_ptr = mlx_get_data_addr(s->img, &s->bpp, &s->sl, &s->endian);
 	s->s_buff = malloc(sizeof(int) * s->x);
 	while (s->cox < s->x)
 	{

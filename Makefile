@@ -16,7 +16,7 @@ SRCCUB = ft_conversor.c ft_cub3d.c ft_draw.c ft_getinfo.c ft_init.c ft_keys.c \
 ft_raycasting.c ft_rules.c ft_toimg_andimg.c ft_frees.c sprites.c
 SRCMINI= mlx_shaders.c mlx_new_window.m mlx_init_loop.m mlx_new_image.m mlx_xpm.c mlx_int_str_to_wordtab.c
 SRCMINI+= mlx_png.c mlx_mouse.m
-CC = gcc -Wall -Wextra -Werror
+CC = gcc -Wall -Wextra -Werror -O3
 RM = rm -f
 all: $(NAME)
 $(NAME): 
