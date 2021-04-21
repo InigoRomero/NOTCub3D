@@ -62,13 +62,10 @@ void	sorting(t_s *s)
 	calculate_distance(s);
 	while (i < s->count_sprite)
 	{
-		j = 0;
-		while (j < s->count_sprite - i - 1)
-		{
+		j = -1;
+		while (++j < s->count_sprite - i - 1)
 			if (s->s_distance[j] < s->s_distance[j + 1])
 				swap(s, j);
-			j++;
-		}
 		i++;
 	}
 }
@@ -135,6 +132,8 @@ void	sprites(t_s *s)
             {
                 if (s->transform_y > 0 && s->stripe > 0 && s->stripe < s->x && s->transform_y < s->s_buff[s->stripe])
 				{
+					if (s->id == 0)
+						s->hp -= 0.00099;
                 	s->tex_x = (int)(((s->h[7] * 4) * (s->stripe - ((-s->sprite_w / 2) + s->sprite_screen_x))) * s->w[4] / s->sprite_w) / (s->h[7] * 4);
                     print_sprites(s);
 				}

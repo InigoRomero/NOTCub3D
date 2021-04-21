@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:17:51 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/21 17:17:36 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/21 19:44:49 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ void	raycaauxtwo(t_s *s)
 	{
 		s->mapn[(int)s->posx][(int)s->posy] = 0;
 		s->score += 100;
-		s->hp += 3;
+		if (s->hp + 3 > 200)
+			s->hp = 200;
+		else
+			s->hp += 3;
 	}
 	while (s->hit == 0)
 	{
@@ -96,6 +99,11 @@ void	raycasting(t_s *s)
 	s->cox = 0;
 	s->obx = 0;
 	s->s_buff = malloc(sizeof(int) * s->x);
+	if (s->hp <= 0)
+	{
+		write(1, "GAME OVER LOSER TRUPER", 23);
+		exit(1);
+	}
 	while (s->cox < s->x)
 	{
 		s->camerax = 2 * s->cox / (double)s->x - 1;
