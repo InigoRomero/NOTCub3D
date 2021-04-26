@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:17:51 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/26 15:27:07 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/26 19:02:23 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ void	raycaauxtwo(t_s *s)
 	{
 		s->mapn[(int)s->posx][(int)s->posy] = 0;
 		s->score += 100;
+		s->coin_counter--;
 		if (s->hp + 3 > 200)
 			s->hp = 200;
 		else
