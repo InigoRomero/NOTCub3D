@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 18:38:25 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/26 15:50:05 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/26 18:56:00 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,10 @@ void	loadfp(t_s *s)
 		"src/staraptor.xpm", &s->w[10], &s->h[10]);
 	s->data_spr[10] = (int *) mlx_get_data_addr(s->wlone[10],
 		&s->wbpp[10], &s->wsl[10], &s->wendian[10]);
+	s->wlone[11] = mlx_xpm_file_to_image(s->mlx_ptr,
+		"src/dragonite.xpm", &s->w[11], &s->h[11]);
+	s->data_spr[11] = (int *) mlx_get_data_addr(s->wlone[11],
+		&s->wbpp[11], &s->wsl[11], &s->wendian[11]);
 }
 
 void	fp(t_s *s)

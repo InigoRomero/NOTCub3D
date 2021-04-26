@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 14:29:36 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/21 17:19:03 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/26 18:58:28 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ void	readmap(t_s *s, char **argv, int argc)
 	char	*buffer;
 
 	s->count_sprite = 0;
+	s->coin_counter = 0;
 	s->map = ft_strdup("");
 	fp = open(argv[1], O_RDONLY);
 	while ((get_next_line(fp, &buffer)) > 0)

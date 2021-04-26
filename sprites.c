@@ -111,6 +111,8 @@ void	sprites(t_s *s)
 				s->id = 9;
 				if ((int)s->sprite_pos_x[i] % 2 != 0)
 					s->id = 10;
+				if ((int)s->sprite_pos_y[i] % 3 != 0)
+					s->id = 11;
 			}
             s->sprite_x = s->sprite_pos_x[i] - s->posx;
             s->sprite_y = s->sprite_pos_y[i] - s->posy;
@@ -137,7 +139,7 @@ void	sprites(t_s *s)
             {
                 if (s->transform_y > 0 && s->stripe > 0 && s->stripe < s->x && s->transform_y < s->s_buff[s->stripe])
 				{
-					if (s->id >= 9)
+					if (s->id >= 9 && s->score < s->coin_counter * 100)
 						s->hp -= 0.00099;
                 	s->tex_x = (int)(((s->h[s->id] * 4) * (s->stripe - ((-s->sprite_w / 2) + s->sprite_screen_x))) * s->w[s->id] / s->sprite_w) / (s->h[s->id] * 4);
                     print_sprites(s);

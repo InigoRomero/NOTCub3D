@@ -174,6 +174,7 @@ typedef struct		s_vars
 	int				screenshot;
 	int				max_row;
 	int				max_col;
+	int				coin_counter;
 	//SPRITES
 	double		sprite_x;
 	double		sprite_y;

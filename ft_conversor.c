@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/08 15:04:33 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/26 15:59:35 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/26 18:58:15 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,8 @@ void		maptoarrayaux(t_s *s, int i, int n, int y)
 	s->mapn[i][y] = s->map[n] - 48;
 	if (s->mapn[i][y] == 2 || s->mapn[i][y] == 3 || s->mapn[i][y] == 4)
 		s->count_sprite++;
+	if (s->mapn[i][y] == 2)
+		s->coin_counter++;
 	if (s->mapn[i][y] > 4)
 	{
 		getdirandpos(s, s->mapn[i][y], i, y);
