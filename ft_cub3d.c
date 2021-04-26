@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/21 18:38:25 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/19 20:04:04 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/26 15:50:05 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,21 @@ void	loadfp(t_s *s)
 	s->wdata[6] = mlx_get_data_addr(s->wlone[6],
 		&s->wbpp[6], &s->wsl[6], &s->wendian[6]);
 	s->wlone[7] = mlx_xpm_file_to_image(s->mlx_ptr,
-		"src/barrel.xpm", &s->w[7], &s->h[7]);
-	s->data_spr[0] = (int *) mlx_get_data_addr(s->wlone[7],
+		"src/coin.xpm", &s->w[7], &s->h[7]);
+	s->data_spr[7] = (int *) mlx_get_data_addr(s->wlone[7],
 		&s->wbpp[7], &s->wsl[7], &s->wendian[7]);
 	s->wlone[8] = mlx_xpm_file_to_image(s->mlx_ptr,
 		"src/pillar.xpm", &s->w[8], &s->h[8]);
-	s->data_spr[1] = (int *) mlx_get_data_addr(s->wlone[8],
+	s->data_spr[8] = (int *) mlx_get_data_addr(s->wlone[8],
 		&s->wbpp[8], &s->wsl[8], &s->wendian[8]);
+	s->wlone[9] = mlx_xpm_file_to_image(s->mlx_ptr,
+		"src/charizard.xpm", &s->w[9], &s->h[9]);
+	s->data_spr[9] = (int *) mlx_get_data_addr(s->wlone[9],
+		&s->wbpp[9], &s->wsl[9], &s->wendian[9]);
+	s->wlone[10] = mlx_xpm_file_to_image(s->mlx_ptr,
+		"src/staraptor.xpm", &s->w[10], &s->h[10]);
+	s->data_spr[10] = (int *) mlx_get_data_addr(s->wlone[10],
+		&s->wbpp[10], &s->wsl[10], &s->wendian[10]);
 }
 
 void	fp(t_s *s)

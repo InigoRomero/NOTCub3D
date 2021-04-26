@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:17:51 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/21 19:44:49 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/04/26 15:27:07 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ void	raycasting(t_s *s)
 {
 	s->cox = 0;
 	s->obx = 0;
+
 	s->s_buff = malloc(sizeof(int) * s->x);
 	if (s->hp <= 0)
 	{

@@ -18,7 +18,7 @@ void	get_sprite(t_s *s)
 		c = -1;
 		while (++c < noffiles(s))
 		{
-			if (s->mapn[r][c] == 2 || s->mapn[r][c] == 3 | s->mapn[r][c] == 4)
+			if (s->mapn[r][c] >= 2)
 			{
 				s->sprite_pos_x[i] = r + 0.5;
 				s->sprite_pos_y[i++] = c + 0.5;
@@ -78,12 +78,11 @@ void		print_sprites(t_s *s)
 
 	d = 0;
 	y = s->drawstart_y;
-	
     while (y < s->drawend_y)
 	{
-		d = (y) * (s->h[7] * 4) - s->y * (s->h[7] * 2) + s->sprite_h * (s->h[7] * 2);
-		s->tex_y = ((d * s->h[4]) / s->sprite_h) / (s->h[7] * 4);
-		s->color = s->data_spr[s->id][(s->wsl[4] / 4) * s->tex_y + s->tex_x];
+		d = (y) * (s->h[s->id] * 4) - s->y * (s->h[s->id] * 2) + s->sprite_h * (s->h[s->id] * 2);
+		s->tex_y = ((d * s->h[s->id]) / s->sprite_h) / (s->h[s->id] * 4);
+		s->color = s->data_spr[s->id][(s->wsl[s->id] / 4) * s->tex_y + s->tex_x];
 		if ((s->color & BLACK) != 0)
 			s->img_ptr[y * s->x + s->stripe] = s->color;
 		if (s->color != 0)
@@ -101,12 +100,18 @@ void	sprites(t_s *s)
 	sorting(s);
 	while (i < s->count_sprite)
 	{
-        if (s->mapn[(int)s->sprite_pos_x[i]][(int)s->sprite_pos_y[i]] == 2 || s->mapn[(int)s->sprite_pos_x[i]][(int)s->sprite_pos_y[i]] == 3 )
+        if (s->mapn[(int)s->sprite_pos_x[i]][(int)s->sprite_pos_y[i]] >= 2 )
         {
             if (s->mapn[(int)s->sprite_pos_x[i]][(int)s->sprite_pos_y[i]] == 2)
-                s->id = 0;
+                s->id = 7;
             if (s->mapn[(int)s->sprite_pos_x[i]][(int)s->sprite_pos_y[i]] == 3)
-                s->id = 1;
+                s->id = 8;
+			if (s->mapn[(int)s->sprite_pos_x[i]][(int)s->sprite_pos_y[i]] == 4)
+            {
+				s->id = 9;
+				if ((int)s->sprite_pos_x[i] % 2 != 0)
+					s->id = 10;
+			}
             s->sprite_x = s->sprite_pos_x[i] - s->posx;
             s->sprite_y = s->sprite_pos_y[i] - s->posy;
             s->invdet = 1.0 / (s->planex * s->diry - s->dirx * s->planey);
@@ -132,9 +137,9 @@ void	sprites(t_s *s)
             {
                 if (s->transform_y > 0 && s->stripe > 0 && s->stripe < s->x && s->transform_y < s->s_buff[s->stripe])
 				{
-					if (s->id == 0)
+					if (s->id >= 9)
 						s->hp -= 0.00099;
-                	s->tex_x = (int)(((s->h[7] * 4) * (s->stripe - ((-s->sprite_w / 2) + s->sprite_screen_x))) * s->w[4] / s->sprite_w) / (s->h[7] * 4);
+                	s->tex_x = (int)(((s->h[s->id] * 4) * (s->stripe - ((-s->sprite_w / 2) + s->sprite_screen_x))) * s->w[s->id] / s->sprite_w) / (s->h[s->id] * 4);
                     print_sprites(s);
 				}
                 s->stripe++;
