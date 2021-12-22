@@ -1,8 +1,8 @@
 R 1280 720
-NO ./src/stone.xpm
-SO ./src/wood.xpm
-WE ./src/mossy.xpm
-EA ./src/redbrick.xpm
+NO ./src/wall_c1.xpm
+SO ./src/wall_c2.xpm
+WE ./src/wall_c3.xpm
+EA ./src/wall_c4.xpm
 
 S ./path_to_the_sprite_texture
 F 220,100,0

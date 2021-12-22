@@ -79,6 +79,7 @@
 # include "libft/libft.h"
 # include "gnl/get_next_line.h"
 # define BLACK 0x00000000
+# define WHITE 0xfffffff
 
 typedef struct		s_vars
 {
@@ -198,6 +199,14 @@ typedef struct		s_vars
 	int			stripe;
 	int			tex_x;
 	int			tex_y;
+	//snow
+	char			*s_img;
+	char			*s_img_ptr;
+	int				s_bpp;
+	int				s_sl;
+	int				s_endian;
+	int				snow_height;
+	int				draw_snow;
 }					t_s;
 
 void				getinfo(t_s *s, char *buffer);

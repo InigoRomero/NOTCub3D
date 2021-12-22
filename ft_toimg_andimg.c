@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 13:15:30 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/26 19:12:18 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/12/22 18:04:03 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,7 @@ void	to_img(t_s *s)
 	}
 	n = ft_itoa(s->score);
 	mlx_string_put(s->mlx_ptr, s->win_ptr, 20, 20, 293994, n);
+	//mlx_put_image_to_window(s->mlx_ptr, s->win_ptr, s->s_img, 0, s->snow_height);
 	if (s->coin_counter == 0)
 	{
 		mlx_string_put(s->mlx_ptr, s->win_ptr, 20, 40, 293994, "you have collected all the coins");

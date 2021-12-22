@@ -6,7 +6,7 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/22 14:29:36 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/26 18:58:28 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/12/22 17:50:46 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,8 @@ void	startvars(t_s *s)
 	s->win_ptr = NULL;
 	s->score = 0;
 	s->hp = 200.00;
+	s->snow_height = 0;
+	s->draw_snow = 1;
 }
 
 void	openall(t_s *s)
@@ -61,6 +63,8 @@ void	openall(t_s *s)
 	s->win_ptr = mlx_new_window(s->mlx_ptr, s->x, s->y, "mlx 42");
 	s->img = mlx_new_image(s->mlx_ptr, s->x, s->y);
 	s->img_ptr = mlx_get_data_addr(s->img, &s->bpp, &s->sl, &s->endian);
+	s->s_img = mlx_new_image(s->mlx_ptr, s->x, s->y * 3);
+	s->s_img_ptr = mlx_get_data_addr(s->s_img, &s->s_bpp, &s->s_sl, &s->s_endian);
 	fp(s);
 	raycasting(s);
 	mlx_hook(s->win_ptr, 2, 0, nopulsed, s);

@@ -6,11 +6,25 @@
 /*   By: iromero- <iromero-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/12/16 19:17:51 by iromero-          #+#    #+#             */
-/*   Updated: 2021/04/26 19:02:23 by iromero-         ###   ########.fr       */
+/*   Updated: 2021/12/22 18:21:23 by iromero-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_cub3d.h"
+
+
+void	draw_snow(t_s *s)
+{
+	int i = -1, h = s->y * 3, color = WHITE, color2 = 0;
+	
+	while (++i < h)
+	{
+		int r = rand() % 200;
+		if (r == 1)
+			ft_memcpy(s->img_ptr + 4 * s->x * i + s->cox * 4, &color, sizeof(int));
+	}
+	s->snow_height = 0;
+}
 
 void	raycaauxfour(t_s *s)
 {
@@ -30,7 +44,6 @@ void	raycaauxfour(t_s *s)
 	ft_verline(s);
 	if (s->count_sprite > 0)
 		s->s_buff[s->cox] = s->perpwalldist;
-	s->cox++;
 }
 
 void	raycaauxthre(t_s *s)
@@ -117,7 +130,14 @@ void	raycasting(t_s *s)
 		s->deltadisty = fabs((1 / s->raydiry));
 		s->hit = 0;
 		raycaaux(s);
+		//if (s->draw_snow)
+			draw_snow(s);
+		s->cox++;
 	}
+	s->draw_snow = 0;
+	s->snow_height++;
+	if (s->snow_height >= s->y)
+		s->draw_snow = 1;
 	if (s->count_sprite > 0)
 		sprites(s);
 	to_img(s);
