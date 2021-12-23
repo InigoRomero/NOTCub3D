@@ -1,4 +1,4 @@
-R 1280 720
+R 720 480
 NO ./src/wall_c1.xpm
 SO ./src/wall_c2.xpm
 WE ./src/wall_c3.xpm

@@ -18,27 +18,27 @@ void	loadfp(t_s *s)
 	s->wdata[4] = mlx_get_data_addr(s->wlone[4],
 		&s->wbpp[4], &s->wsl[4], &s->wendian[4]);
 	s->wlone[6] = mlx_xpm_file_to_image(s->mlx_ptr,
-		"src/Floor.xpm", &s->w[6], &s->h[6]);
+		"src/wood.xpm", &s->w[6], &s->h[6]);
 	s->wdata[6] = mlx_get_data_addr(s->wlone[6],
 		&s->wbpp[6], &s->wsl[6], &s->wendian[6]);
 	s->wlone[7] = mlx_xpm_file_to_image(s->mlx_ptr,
-		"src/coin.xpm", &s->w[7], &s->h[7]);
+		"src/gift.xpm", &s->w[7], &s->h[7]);
 	s->data_spr[7] = (int *) mlx_get_data_addr(s->wlone[7],
 		&s->wbpp[7], &s->wsl[7], &s->wendian[7]);
 	s->wlone[8] = mlx_xpm_file_to_image(s->mlx_ptr,
-		"src/pillar.xpm", &s->w[8], &s->h[8]);
+		"src/baston.xpm", &s->w[8], &s->h[8]);
 	s->data_spr[8] = (int *) mlx_get_data_addr(s->wlone[8],
 		&s->wbpp[8], &s->wsl[8], &s->wendian[8]);
 	s->wlone[9] = mlx_xpm_file_to_image(s->mlx_ptr,
-		"src/charizard.xpm", &s->w[9], &s->h[9]);
+		"src/reno.xpm", &s->w[9], &s->h[9]);
 	s->data_spr[9] = (int *) mlx_get_data_addr(s->wlone[9],
 		&s->wbpp[9], &s->wsl[9], &s->wendian[9]);
 	s->wlone[10] = mlx_xpm_file_to_image(s->mlx_ptr,
-		"src/staraptor.xpm", &s->w[10], &s->h[10]);
+		"src/elf.xpm", &s->w[10], &s->h[10]);
 	s->data_spr[10] = (int *) mlx_get_data_addr(s->wlone[10],
 		&s->wbpp[10], &s->wsl[10], &s->wendian[10]);
 	s->wlone[11] = mlx_xpm_file_to_image(s->mlx_ptr,
-		"src/dragonite.xpm", &s->w[11], &s->h[11]);
+		"src/noel.xpm", &s->w[11], &s->h[11]);
 	s->data_spr[11] = (int *) mlx_get_data_addr(s->wlone[11],
 		&s->wbpp[11], &s->wsl[11], &s->wendian[11]);
 }
@@ -49,7 +49,7 @@ void	fp(t_s *s)
 	s->wdata[0] = mlx_get_data_addr(s->wlone[0],
 		&s->wbpp[0], &s->wsl[0], &s->wendian[0]);
 	s->wlone[1] = mlx_xpm_file_to_image(s->mlx_ptr,
-		"src/sky.xpm", &s->w[1], &s->h[1]);
+		"src/mountain.xpm", &s->w[1], &s->h[1]);
 	s->wdata[1] = mlx_get_data_addr(s->wlone[1],
 		&s->wbpp[1], &s->wsl[1], &s->wendian[1]);
 	s->wlone[2] = mlx_xpm_file_to_image(s->mlx_ptr, s->no, &s->w[2], &s->h[2]);

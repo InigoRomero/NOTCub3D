@@ -53,19 +53,22 @@ void	auxline(t_s *s)
 	s->x_text = abs(s->x_text);
 	while (s->j <= s->drawend)
 		put_pxl_to_img(s, s->cox, s->j++);
+	//draw_floor(s, s->cox, s->drawend - 1, s->y);
+	
 	while (s->j < s->y)
 	{
 		ft_memcpy(s->img_ptr + 4 * s->x * s->j +
 			s->cox * 4, &s->color2, sizeof(int));
 		s->j++;
 	}
-	printhp(s);
+//	printhp(s);
 }
 
 void	ft_verline(t_s *s)
 {
 	s->color2 = 293994;
 	s->j = 0;
+	
 	while (s->j < s->drawstart)
 	{
 		ft_memcpy(s->img_ptr + (s->wbpp[1] / 8) * s->x *

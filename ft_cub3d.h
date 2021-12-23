@@ -207,6 +207,16 @@ typedef struct		s_vars
 	int				s_endian;
 	int				snow_height;
 	int				draw_snow;
+	int				snow[1500][2000];
+	//floor
+	double			x_floor;
+	double			y_floor;
+	double			x_curfloortext;
+	double			y_curfloortext;
+	double			weight;
+	double			curdist;
+	int				x_floortext;
+	int				y_floortext;
 }					t_s;
 
 void				getinfo(t_s *s, char *buffer);
@@ -235,4 +245,6 @@ void				set_int_in_char(unsigned char *start, int value);
 int					get_color(t_s *s, int x, int y);
 void				get_sprite(t_s *s);
 void				sprites(t_s *s);
+void 				create_snow(t_s *s);
+void				draw_floor(t_s *s, int x, int start, int end);
 #endif

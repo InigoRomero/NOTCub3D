@@ -12,18 +12,87 @@
 
 #include "ft_cub3d.h"
 
+void create_snow(t_s *s)
+{
+	int x = -1, y;
 
-void	draw_snow(t_s *s)
+	while (++x < 1500)
+	{
+		y = -1;
+		while (++y < 2000) 
+		{
+			s->snow[x][y] = 0;
+			int r = rand() % 200;
+			if (r == 1)
+				s->snow[x][y] = 1;
+		}
+	}
+	s->snow_height = 0;
+}
+
+static void	draw_snow(t_s *s)
 {
 	int i = -1, h = s->y * 3, color = WHITE, color2 = 0;
 	
-	while (++i < h)
-	{
-		int r = rand() % 200;
-		if (r == 1)
+	while (++i < h) {
+		int r = rand() % 2;
+		int r2 = rand() % 2;
+		if (r2 == 1)
+			r = r * -1;
+		if (s->snow[s->cox + r][i -
+		 s->snow_height] == 1)
 			ft_memcpy(s->img_ptr + 4 * s->x * i + s->cox * 4, &color, sizeof(int));
 	}
-	s->snow_height = 0;
+}
+
+static void	set_floor(t_s *s)
+{
+	if (s->side == 0 && s->raydirx > 0)
+	{
+		s->x_floor = s->mapx;
+		s->y_floor = s->mapy + s->x_wall;
+	}
+	else if (s->side == 0 && s->raydirx < 0)
+	{
+		s->x_floor = s->mapx + 1.0;
+		s->y_floor = s->mapy + s->x_wall;
+	}
+	else if (s->side == 1 && s->raydiry > 0)
+	{
+		s->x_floor = s->mapx + s->x_wall;
+		s->y_floor = s->mapy;
+	}
+	else
+	{
+		s->x_floor = s->mapx + s->x_wall;
+		s->y_floor = s->mapy + 1.0;
+	}
+}
+
+void		draw_floor(t_s *s, int x, int start, int end)
+{
+	set_floor(s);
+	while (++start < end)
+	{
+		s->curdist = s->y / (2.0 * start - s->y);
+		s->weight = s->curdist / s->perpwalldist;
+		s->x_curfloortext = s->weight * s->x_floor + (1.0 - s->weight) *
+			s->posy;
+		s->y_curfloortext = s->weight * s->y_floor + (1.0 - s->weight) *
+			s->posx;
+		s->x_floortext = (int)(s->x_curfloortext * s->w[s->id]) %
+			s->w[s->id];
+		s->y_floortext = (int)(s->y_curfloortext * s->h[s->id]) %
+			s->h[s->id];
+		ft_memcpy(s->img_ptr + 4 * s->x * start + 4 * x,
+			&s->wdata[s->id][4 * s->w[s->id] * s->x_floortext +
+			4 * s->y_floortext], sizeof(int));
+		/*if ((int)s->wdata[6][4 * s->w[6] * s->x_floortext +
+			4 * s->y_floortext])
+			ft_memcpy(s->img_ptr + 4 * ((s->y - start) * s->x) +
+				4 * x, &s->wdata[6][4 * s->w[6] * s->x_floortext +
+				4 * s->y_floortext], sizeof(int));*/
+	}
 }
 
 void	raycaauxfour(t_s *s)
@@ -59,10 +128,10 @@ void	raycaauxtwo(t_s *s)
 		s->mapn[(int)s->posx][(int)s->posy] = 0;
 		s->score += 100;
 		s->coin_counter--;
-		if (s->hp + 3 > 200)
+	/*	if (s->hp + 3 > 200)
 			s->hp = 200;
 		else
-			s->hp += 3;
+			s->hp += 3;*/
 	}
 	while (s->hit == 0)
 	{
@@ -114,11 +183,11 @@ void	raycasting(t_s *s)
 	s->obx = 0;
 
 	s->s_buff = malloc(sizeof(int) * s->x);
-	if (s->hp <= 0)
+	/*if (s->hp <= 0)
 	{
 		write(1, "GAME OVER LOSER TRUPER", 23);
 		exit(1);
-	}
+	}*/
 	while (s->cox < s->x)
 	{
 		s->camerax = 2 * s->cox / (double)s->x - 1;
@@ -130,14 +199,12 @@ void	raycasting(t_s *s)
 		s->deltadisty = fabs((1 / s->raydiry));
 		s->hit = 0;
 		raycaaux(s);
-		//if (s->draw_snow)
-			draw_snow(s);
+		draw_snow(s);
 		s->cox++;
 	}
-	s->draw_snow = 0;
-	s->snow_height++;
-	if (s->snow_height >= s->y)
-		s->draw_snow = 1;
+	s->snow_height += 3;
+	if (s->snow_height >= s->y + 300)
+		create_snow(s);
 	if (s->count_sprite > 0)
 		sprites(s);
 	to_img(s);

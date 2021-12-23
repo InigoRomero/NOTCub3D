@@ -52,6 +52,7 @@ void	startvars(t_s *s)
 	s->hp = 200.00;
 	s->snow_height = 0;
 	s->draw_snow = 1;
+	create_snow(s);
 }
 
 void	openall(t_s *s)

@@ -139,8 +139,8 @@ void	sprites(t_s *s)
             {
                 if (s->transform_y > 0 && s->stripe > 0 && s->stripe < s->x && s->transform_y < s->s_buff[s->stripe])
 				{
-					if (s->id >= 9 && 0 < s->coin_counter)
-						s->hp -= 0.00099;
+				//	if (s->id >= 9 && 0 < s->coin_counter)
+				//		s->hp -= 0.00099;
                 	s->tex_x = (int)(((s->h[s->id] * 4) * (s->stripe - ((-s->sprite_w / 2) + s->sprite_screen_x))) * s->w[s->id] / s->sprite_w) / (s->h[s->id] * 4);
                     print_sprites(s);
 				}
