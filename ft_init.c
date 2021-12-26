@@ -50,7 +50,7 @@ void	startvars(t_s *s)
 	s->win_ptr = NULL;
 	s->score = 0;
 	s->hp = 200.00;
-	s->snow_height = 0;
+	s->snow_height = 1998;
 	s->draw_snow = 1;
 	create_snow(s);
 }

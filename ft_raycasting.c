@@ -14,18 +14,26 @@
 
 void create_snow(t_s *s)
 {
-	int x = -1, y;
+	int x = 0, y;
 
-	while (++x < 1500)
+	while (x < s->x)
 	{
-		y = -1;
-		while (++y < 2000) 
+		y = 0;
+		while (y < s->snow_height) 
 		{
-			s->snow[x][y] = 0;
-			int r = rand() % 200;
+			if (y < s->drawstart)
+				s->snow[x][y] = 0;
+			int r = rand() % 300;
 			if (r == 1)
+			{
 				s->snow[x][y] = 1;
+				s->snow[x][y + 1] = 1;
+				s->snow[x + 1][y] = 1;
+				s->snow[x + 1][y + 1] = 1;
+			}
+			y += 2;
 		}
+		x+=2;
 	}
 	s->snow_height = 0;
 }
@@ -35,11 +43,7 @@ static void	draw_snow(t_s *s)
 	int i = -1, h = s->y * 3, color = WHITE, color2 = 0;
 	
 	while (++i < h) {
-		int r = rand() % 2;
-		int r2 = rand() % 2;
-		if (r2 == 1)
-			r = r * -1;
-		if (s->snow[s->cox + r][i -
+		if (s->snow[s->cox][i -
 		 s->snow_height] == 1)
 			ft_memcpy(s->img_ptr + 4 * s->x * i + s->cox * 4, &color, sizeof(int));
 	}
@@ -72,6 +76,7 @@ static void	set_floor(t_s *s)
 void		draw_floor(t_s *s, int x, int start, int end)
 {
 	set_floor(s);
+	start += 100;
 	while (++start < end)
 	{
 		s->curdist = s->y / (2.0 * start - s->y);
@@ -84,14 +89,16 @@ void		draw_floor(t_s *s, int x, int start, int end)
 			s->w[s->id];
 		s->y_floortext = (int)(s->y_curfloortext * s->h[s->id]) %
 			s->h[s->id];
-		ft_memcpy(s->img_ptr + 4 * s->x * start + 4 * x,
+	/*	ft_memcpy(s->img_ptr + 4 * s->x * start + 4 * x,
 			&s->wdata[s->id][4 * s->w[s->id] * s->x_floortext +
-			4 * s->y_floortext], sizeof(int));
-		/*if ((int)s->wdata[6][4 * s->w[6] * s->x_floortext +
-			4 * s->y_floortext])
-			ft_memcpy(s->img_ptr + 4 * ((s->y - start) * s->x) +
-				4 * x, &s->wdata[6][4 * s->w[6] * s->x_floortext +
-				4 * s->y_floortext], sizeof(int));*/
+			4 * s->y_floortext], sizeof(int));*/
+		if ((int)s->wdata[6][4 * s->w[6] * s->x_floortext +
+			(s->wbpp[6] / 8) * s->y_floortext]) {
+				ft_memcpy(s->img_ptr + (s->wbpp[6] / 8) * s->x * start
+					+ start * (s->wbpp[6] / 8),
+						&s->wdata[6][s->y_floortext % s->h[6] * s->wsl[6] +
+						s->x_floortext % s->w[6] * s->wbpp[6] / 8], sizeof(int));
+			}
 	}
 }
 
@@ -201,9 +208,10 @@ void	raycasting(t_s *s)
 		raycaaux(s);
 		draw_snow(s);
 		s->cox++;
+		//	draw_floor(s, s->cox, s->drawend - 1, s->y);
 	}
-	s->snow_height += 3;
-	if (s->snow_height >= s->y + 300)
+	s->snow_height ++;
+	if (s->snow_height >= s->y)
 		create_snow(s);
 	if (s->count_sprite > 0)
 		sprites(s);
